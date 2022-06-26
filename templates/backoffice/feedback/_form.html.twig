@@ -1,0 +1,20 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.message) }}
+    {{ form_row(form.rating) }}
+    <label class="label-payment-mode" for="user">Auteur</label>    
+    <br>
+
+    <select class="select-payment-mode mb-2" name="user" id="user">
+        {% for user in listOfUsers %}   
+            {% if feedback.user %}        
+                <option value="{{ user.id }}" {% if user.id == feedback.user.id %} selected {% endif %}>{{ user.pseudo }}</option>
+            {% else %}            
+                <option value="{{ user.id }}">{{ user.pseudo }}</option>
+            {% endif %}    
+        {% endfor %}
+    </select>
+    <br>
+    {{ form_row(form.status) }}
+    
+    <button class="btn btn-primary mb-2">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

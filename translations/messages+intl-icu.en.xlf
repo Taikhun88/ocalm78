@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -248,6 +248,90 @@
       <trans-unit id="kQWnsB7" resname="Your email address has been verified.">
         <source>Your email address has been verified.</source>
         <target>Your email address has been verified.</target>
+      </trans-unit>
+      <trans-unit id="seAdKJo" resname="The password is invalid.">
+        <source>The password is invalid.</source>
+        <target>__The password is invalid.</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAs" resname="No account with this email.">
+        <source>No account with this email.</source>
+        <target>__No account with this email.</target>
+      </trans-unit>
+            <trans-unit id="X0VtLAA" resname="Monday">
+        <source>Monday</source>
+        <target>Monday</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAB" resname="Tuesday">
+        <source>Tuesday</source>
+        <target>Tuesday</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAC" resname="Wednesday">
+        <source>Wednesday</source>
+        <target>Wednesday</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAD" resname="Thursday">
+        <source>Thursday</source>
+        <target>Thursday</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAE" resname="Friday">
+        <source>Friday</source>
+        <target>Friday</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAF" resname="Saturday">
+        <source>Saturday</source>
+        <target>Saturday</target>
+      </trans-unit>
+      <trans-unit id="X0VtLAG" resname="Sunday">
+        <source>Sunday</source>
+        <target>Sunday</target>
+      </trans-unit>
+      <trans-unit id="em2FljN" resname="January">
+        <source>January</source>
+        <target>January</target>
+      </trans-unit>
+      <trans-unit id="U_KXW15" resname="February">
+        <source>February</source>
+        <target>February</target>
+      </trans-unit>
+      <trans-unit id="_nW1wl." resname="March">
+        <source>March</source>
+        <target>March</target>
+      </trans-unit>
+      <trans-unit id="qmiQgpU" resname="April">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="7k2YjGX" resname="May">
+        <source>May</source>
+        <target>May</target>
+      </trans-unit>
+      <trans-unit id="wPoe_GR" resname="June">
+        <source>June</source>
+        <target>June</target>
+      </trans-unit>
+      <trans-unit id="BcfbrBT" resname="July">
+        <source>July</source>
+        <target>July</target>
+      </trans-unit>
+      <trans-unit id="wq.dOFZ" resname="August">
+        <source>August</source>
+        <target>August</target>
+      </trans-unit>
+      <trans-unit id="JJ0fnLh" resname="September">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="eu5bXbu" resname="October">
+        <source>October</source>
+        <target>October</target>
+      </trans-unit>
+      <trans-unit id="togj7e0" resname="November">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="h0X4ZkC" resname="December">
+        <source>December</source>
+        <target>December</target>
       </trans-unit>
     </body>
   </file>

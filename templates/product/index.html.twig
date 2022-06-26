@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue des produits
+{% endblock %}
+
+{% block body %}
+	<h1 class="my-3 text-center">Catalogue des produits</h1>
+	<div class="d-flex flex-column justify-content-center flex-wrap text-center">
+		{% for key, category in products %}
+			<div>
+				<h2 class="productsCategory">{{ key }}</h2>
+				<div class="row d-flex flex-row justify-content-between w-95 m-auto">
+					{% for product in category %}
+						<div class="col-12 col-md-5 bg-dark-light mb-3 rounded">
+							<div class="row rounded-left p-1">
+								<div class="col-4 bg-dark-light">
+									<img src="{{ asset('images/products/' ~ product.imageUpfront) }}" class="img-fluid rounded my-2 img-style" alt="...">
+									<div class="mb-1">{{ product.price }}
+										€</div>
+									<div>
+										<a href="{{ path('product_details', {'id': product.id}) }}" class="w-100">
+											<button class="btn btn-primary btn-md w-100 mb-3 card-details">Voir détails</button>
+										</a>
+									</div>
+								</div>
+								<div class="col-8 p-1">
+									<div class="card-body bg-red-light">
+										<h5 class="card-title">{{ product.name }}</h5>
+										<p class="card-text">{{ product.description }}</p>
+										<div class="d-flex flex-row flex-nowrap justify-content-around align-items-baseline">
+											<form action="" method="POST" class="d-flex flex-row justify-content-around w-100">
+												<input id="product-qty-{{ product.id }}" class="product-qty text-center" value="1" type="number" min="1" max="10" step="1" name="qty"></input>
+												<button value="{{ product.id }}" name="id" class="btn btn- btn-md btn-success">Ajouter au panier</button>
+												{# TODO vérifier l'ajout des produits au panier #}
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>	
+					{% else %}
+						<p>Aucun produit disponible pour cette section actuellement</p>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+{% endblock %}

@@ -51,7 +51,6 @@ class UserController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            //TODO flashh
             $message = $translator->trans('User created.');
             $this->addFlash('success', $message);
 
@@ -87,7 +86,6 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setUpdatedAt(new DateTimeImmutable());
             $entityManager->flush();
-            //TODO flashh
             $message = $translator->trans('User updated.');
             $this->addFlash('success', $message);
 
@@ -109,7 +107,6 @@ class UserController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
-            //TODO flashh
             $message = $translator->trans('User updated.');
             $this->addFlash('danger', $message);
         }

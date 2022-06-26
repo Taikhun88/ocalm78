@@ -1,8 +1,24 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn btn-success my-1">
-	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewbox="0 0 16 16">
-		<path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
-	</svg>
-</button>
+{% set currentRoute = app.request.get('_route') %}
+{% set route = currentRoute|split('_')%}
+<div type="hidden" id="listOfAvatars" data-avatars="{{ listOfAvatars|json_encode }}"></div>
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.pseudo) }}
+    {{ form_row(form.avatar) }}
+    {{ form_row(form.email) }}
+    {% if route[2] == 'new' %}
+            {{ form_row(form.plainPassword) }}
+    {% endif %}
+    {{ form_row(form.address) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.loyalty_points) }}
+    {% if route[2] == 'edit' %}
+            {{ form_row(form.roles) }}
+    {% endif %}
+
+    	<div class="horizontal-separator w-75 my-3 m-auto bg-danger opacity-75" style="height:0.5px;"></div>
+
+    {{ form_row(form.newsletter) }}
+<button id="modifyUser" class="btn btn-primary mb-2">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

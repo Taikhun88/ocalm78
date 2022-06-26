@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	-
+	{% trans %}Modifier votre email{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier votre email</h1>
+	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword) }}
+	<button id="modifyUser" class="btn btn-primary mb-2">{{ button_label|default('Valider') }}</button>
+	{{ form_end(form) }}
+{% endblock %}

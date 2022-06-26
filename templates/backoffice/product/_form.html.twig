@@ -1,0 +1,19 @@
+{{ form_start(form,  {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+<label class="label-payment-mode" for="category">Catégorie du produit</label>
+<br>
+<select class="select-payment-mode" name="category" id="category">
+	{% if product.category is null %}
+		{% for productCategory in listOfProductCategory %}
+			<option value="{{ productCategory.id }}" {% if productCategory.name == "non-définie" %} selected {% endif %}>{{ productCategory.name }}</option>
+		{% endfor %}
+	{% else %}
+		{% for productCategory in listOfProductCategory %}
+			<option value="{{ productCategory.id }}" {% if product.category.id == productCategory.id %} selected {% endif %}
+            >{{ productCategory.name }}</option>
+		{% endfor %}
+	{% endif %}
+</select>
+<br>
+<button class="btn btn-primary text-light my-2">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

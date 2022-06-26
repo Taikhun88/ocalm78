@@ -6,13 +6,11 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class UserType extends AbstractType
 {
@@ -27,9 +25,70 @@ class UserType extends AbstractType
     {
 
         $builder
-            ->add('email')
-            ->add('pseudo')
-            ;
+            ->add(
+                'email',
+                null,
+                [
+                    'label' => 'Email',
+                ]
+            )
+            ->add(
+                'pseudo',
+                null,
+                [
+                    'label' => 'Pseudo',
+                ]
+            )
+            ->add(
+                'avatar',
+                null,
+                [
+                    'label' => 'Avatar',
+                    'attr' => 
+                    [
+                        'class' => 'wpx-500 m-auto'
+                    ]
+                ]
+            )
+            ->add(
+                'address',
+                null,
+                [
+                    'label' => 'Adresse',
+                ]
+            )
+            ->add(
+                'city',
+                null,
+                [
+                    'label' => 'Ville',
+                    'attr' => 
+                    [
+                        'class' => 'wpx-500 m-auto text-center'
+                    ]
+                ]
+            )
+            ->add(
+                'phone',
+                null,
+                [
+                    'label' => 'Numéro de mobile',
+                ]
+            )
+            ->add(
+                'loyalty_points',
+                null,
+                [
+                    'label' => 'Points de fidélité',
+                ]
+            )
+            ->add(
+                'newsletter',
+                null,
+                [
+                    'label' => "S'abonner à la newsletter",
+                ]
+            );
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             // ON récupère les données de l'utilisateur que l'on s'apprete
@@ -54,7 +113,10 @@ class UserType extends AbstractType
             // si c est un ADMIN, il peut mettre et enlever le role MODO
             if ($user->getId() != null && $admin->getRoles()[0] === 'ROLE_ADMIN') {
                 $form->add('roles', ChoiceType::class, [
-                    'label' => 'Role',
+                    'label' => 'Roles',
+                    'choice_attr' => function() {
+                        return ['class' => 'mx-1'];
+                    },
                     'choices' => [
                         'Modo' => 'ROLE_MODO',
                         'Admin' => 'ROLE_ADMIN'
@@ -66,12 +128,15 @@ class UserType extends AbstractType
             // si c est un SUPER ADMIN, il peut mettre et enlever le role MODO et ADMIN
             else if ($user->getId() != null && $admin->getRoles()[0] === 'ROLE_SUPER_ADMIN') {
                 $form->add('roles', ChoiceType::class, [
-                    'label' => 'Role',
+                    'label' => 'Roles',
                     'choices' => [
                         'Modo' => 'ROLE_MODO',
                         'Admin' => 'ROLE_ADMIN',
                         'Super Admin' => 'ROLE_SUPER_ADMIN'
                     ],
+                    'choice_attr' => function() {
+                        return ['class' => 'mx-1'];
+                    },
                     'multiple'  => true,
                     'expanded' => true
                 ]);

@@ -6,7 +6,130 @@
 	{% trans %}Home{% endtrans %}
 {% endblock %}
 
-{% block body %}
-
+{% block javascripts %}
+	{{parent()}}
+	<script src="{{ asset('js/carousel.js') }}"></script>
 {% endblock %}
+
+{% block body %}
+	<main>
+		<div>
+			<section id="carousel-section">
+				<div>
+					<h1>Les nouveautés</h1>
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner w-50 m-auto" data-recentproduct="{{recentProducts|json_encode}}">
+							{% for recentProduct in recentProducts %}
+								<div id="carouselElm-{{ loop.index }}" class="carousel-item">
+									{% if recentProduct.imageCarousel %}
+										<img class="d-block w-100 m-auto" src="{{ asset('images/products/' ~ recentProduct.imageCarousel ) }}" alt="image Carousel">
+									{% else %}
+										<i class="far fa-images"></i>
+									{% endif %}
+
+									<div class="carousel-caption d-none d-md-block">
+										<h5 class="text-dark">{{ recentProduct.name }}</h5>
+										<p class="text-dark mb-0">{{ recentProduct.description }}</p>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+
+						<a class="carousel-control-prev" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<div class="d-flex flex-row container my-3">
+				<div class="separator-around"></div>
+				<div class="separator-style"></div>
+				<div class="separator-around"></div>
+			</div>
+
+			<section id="bestsellers-section">
+				{{ render_chart(chart, {'data-controller': 'mychart'}) }}
+				{# TODO faire la section des plus vendus #}
+			</section>
+
+			<div class="d-flex flex-row container my-3">
+				<div class="separator-around"></div>
+				<div class="separator-style"></div>
+				<div class="separator-around"></div>
+			</div>
+
+			<section id="ourvalues-section">
+				<h2>Nos valeurs</h2>
+				<ul>
+					<li>Le respect</li>
+					<li>Le professionnalisme</li>
+					<li>La responsabilité</li>
+					<li>L’esprit d’équipe</li>
+					<li>La détermination</li>
+					<li>La performance</li>
+				</ul>
+				<a href="#">En savoir plus</a>
+			</section>
+
+			<div class="d-flex flex-row container my-3">
+				<div class="separator-around"></div>
+				<div class="separator-style"></div>
+				<div class="separator-around"></div>
+			</div>
+
+			<section id="loyalty-section">
+				<h2>Vos privilèges fidélité</h2>
+				<p>Vous êtes accro et vous commandez régulièrement? Inscrivez vous pour bénéficier d'avantages exclusifs.</p>
+				<ul>
+					<li>Newsletter</li>
+					<li>Points de fidélité</li>
+					<li>Auto-complétion des commandes</li>
+				</ul>
+				<a href="#">En savoir plus</a>
+			</section>
+
+			<div class="d-flex flex-row container my-3">
+				<div class="separator-around"></div>
+				<div class="separator-style"></div>
+				<div class="separator-around"></div>
+			</div>
+
+			<section id="feedback-section">
+				<div class="row d-flex justify-content-around">
+					{% for feedback in randomFeedbacks %}
+						<div class="col-8 col-sm-3 bg-dark text-white border border-secondary flex-wrap py-3 my-3">
+							<div class="">
+								<img class="img-fluid rounded-circle" width="70%" src="{{ asset('images/avatars/' ~ feedback.user.avatar.imagePath) }}" alt="Image du personnage {{ feedback.user.pseudo }}">
+								<figcaption>{{ feedback.user.pseudo }}</figcaption>
+							</div>
+							<div>
+								{% for star in 1..5 %}
+								{% set fillingStar = feedback.rating %}
+									<i class="fas fa-star {{ fillingStar >= star ? ' text-warning' : '' }}"></i>
+								{% endfor %}
+							</div>
+							<div>
+								<p class="feedback-message">{{ feedback.message }}</p>
+
+								<button href="#" class="btn btn-primary">Lire plus</button>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</section>
+		</div>
+	</main>
+{% endblock %}
+
 

@@ -1,0 +1,15 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+
+<div class="d-flex flex-column mb-3">
+		<label class="label-payment-mode" for="avatar-ctg">Sélectionnez la catégorie</label>
+		<select class="select-payment-mode m-auto" name="avatar-ctg" id="avatar-ctg">
+			{% for category in listOfAvatarCategories %}
+				<option value="{{ category.id }}" {% if avatar.category is defined and category == avatar.category %} selected {% endif %}>
+					{{ category.name }}
+				</option>
+			{% endfor %}
+		</select>
+</div>
+		<button class="btn btn-primary mb-2">{{ button_label|default('Enregistrer') }}</button>
+		{{ form_end(form) }}

@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Rédiger un feedback
+{% endblock %}
+
+{% block content %}
+	<h1>Rédiger un feedback</h1>
+
+	{{ include('backoffice/feedback/_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_feedback_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

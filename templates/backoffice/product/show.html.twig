@@ -1,0 +1,92 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Détail des produits
+{% endblock %}
+
+{% block content %}
+	<h1>Vue détaillée du produit</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ product.id }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ product.name }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ product.description }}</td>
+			</tr>
+			<tr>
+				<th>Ingrédients</th>
+				<td>{{ product.ingredients }}</td>
+			</tr>
+			<tr>
+				<th>Allergènes</th>
+				<td>{{ product.allergens }}</td>
+			</tr>
+			<tr>
+				<th>Poids</th>
+				<td>{{ product.weight }}</td>
+			</tr>
+			<tr>
+				<th>Points</th>
+				<td>{{ product.points }}</td>
+			</tr>
+			<tr>
+				<th>Prix</th>
+				<td>{{ product.price }}
+					€</td>
+			</tr>
+			<tr>
+				<th>Promo</th>
+				<td>
+					{% if product.promo is null %}
+						0
+					{% endif %}
+					{{ product.promo }}
+					%</td>
+			</tr>
+			<tr>
+				<th>Image vue de face</th>
+				<td><img class="img-fluid" src="{{ asset('images/products/' ~ product.imageUpfront ) }}" alt=""></td>
+			</tr>
+			<tr>
+				<th>Image vue d'en haut</th>
+				<td><img class="img-fluid" src="{{ asset('images/products/' ~ product.imageTop ) }}" alt=""></td>
+			</tr>
+			<tr>
+				<th>Image vue de près</th>
+				<td><img class="img-fluid" src="{{ asset('images/products/' ~ product.imageCloseup ) }}" alt=""></td>
+			</tr>
+			<tr>
+				<th>Image bannière carousel</th>
+				<td><img class="img-fluid" src="{{ asset('images/products/' ~ product.imageCarousel ) }}" alt=""></td>
+			</tr>
+			<tr>
+				<th>Date de création</th>
+				<td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Date de mise à jour</th>
+				<td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a class="btn btn-primary btn-sm inline-block mb-2" href="{{ path('app_backoffice_product_edit', {'id': product.id}) }}">
+		<i class="far fa-edit"></i>
+	</a>
+
+	{{ include('backoffice/product/_delete_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_product_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+
+{% endblock %}

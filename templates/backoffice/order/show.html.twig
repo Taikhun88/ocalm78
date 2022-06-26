@@ -1,0 +1,92 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} - Détails de la commande
+{% endblock %}
+
+{% block content %}
+	<h1>Détails de la commande</h1>
+
+	<table class="table text-start">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ order.id }}</td>
+			</tr>
+			<tr>
+				<th>N° Commande</th>
+				<td>{{ order.orderNumber }}</td>
+			</tr>
+			<tr>
+				<th>Date de livraison</th>
+				<td>{{ order.deliveryDate ? order.deliveryDate|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Adresse</th>
+				<td>{{ order.address }}</td>
+			</tr>
+			<tr>
+				<th>Lieu de livraison</th>
+				<td>{{ order.city.cityName }} - {{ order.city.zipCode }}</td>
+			</tr>
+			<tr>
+				<th>Numéro de téléphone</th>
+				<td>{{ order.phone }}</td>
+			</tr>
+			<tr>
+				<th>Mode de paiement</th>
+				<td>{{ order.paymentMode == 0 ? 'Paypal' : "Espèces" }} </td>
+			</tr>
+			<tr>
+				<th>Requête client</th>
+				<td>{{ order.customerRequest }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>
+				{% if order.status == 0 %} 
+				En attente 
+				{% elseif order.status == 1 %}
+				Validée	
+				{% elseif order.status == 2 %}
+				Payée
+				{% elseif order.status == 3 %}
+				Livrée
+				{% elseif order.status == 4 %}
+				Annulée
+				{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>Détails</th>
+				{# <td>{{ order.detailsOrder ? order.detailsOrder|json_encode : '' }}</td> #}
+				<td>
+					{% for currentDetails in order.detailsOrder %}
+						{{ currentDetails.qty }}x {{ listOfProducts[currentDetails.id].name }} <br>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ order.email }}</td>
+			</tr>
+			<tr>
+				<th>Date de création</th>
+				<td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Date de mise à jour</th>
+				<td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a class="btn btn-primary btn-sm inline-block mb-2" href="{{ path('app_backoffice_order_edit', {'id': order.id}) }}">
+		<i class="far fa-edit"></i>
+	</a>
+
+	{{ include('backoffice/order/_delete_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_order_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

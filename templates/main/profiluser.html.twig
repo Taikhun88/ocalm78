@@ -3,13 +3,65 @@
 {% block title %}
 	{{parent()}}
 	-
-	{% trans %}Account{% endtrans %}
+				Profil
 {% endblock %}
 
 {% block body %}
-	<h1>{% trans %}Edit your account{% endtrans %}</h1>
+	<h1>Mon profil</h1>
 
-	{{ include('main/_form.html.twig', {'button_label': 'Update'}) }}
+	<div class="container-usercard">
+		<div class="d-flex flex-row usercard bg-dark rounded p-1">
+			<div class="d-flex flex-column w-25">
+				<div class="h-75 pt-3">
+					<img class="rounded-circle" width="70%" src="{{ asset('images/avatars/' ~ user.avatar.imagePath) }}" alt="">
+				</div>
+				<div class="h-25">
+					<p class="pseudo-responsive">{{ user.pseudo }}</p>
+				</div>
+			</div>
 
-	{{ include('main/_delete_form.html.twig') }}
+			<div class="d-flex flex-column w-75 pt-3 bg-secondary">
+				<div class="d-flex flex-column text-white h-75 px-2">
+					<div class="d-flex flex-column flex-md-row">
+						<label for="phone">Téléphone :</label>
+						<p class="info-indent" name="phone"> {{ user.phone }}</p>
+					</div>
+					<div class="d-flex flex-column flex-md-row">
+						<label for="email">Email :</label>
+						<p class="info-indent" name="email"> {{ user.email }}</p>
+						<div><a class="link-changer" href="{{ path('profil_user_edit_email', {'id': user.id}) }}"> changer </a></div>
+					</div>
+					<div class="d-flex flex-column flex-md-row">
+						<label for="address">Adresse :</label>
+						<p class="info-indent" name="address"> {{ user.address }}</p>
+					</div>
+					<div class="d-flex flex-column flex-md-row">
+						<label for="city">Ville :</label>
+						<p class="info-indent" name="city"> {{ user.city }}</p>
+					</div>
+					<div class="d-flex flex-column flex-md-row">
+						<label for="newsletter">Abonnement à la newsletter :</label>
+						<p class="info-indent" name="newsletter">{% if user.newsletter %}
+							<img width="18px" src="{{ asset('images/chek.png') }}" alt="">
+						{% else %}
+							<img width="18px" src="{{ asset('images/false.png') }}" alt="">							
+						{% endif %}</p>
+					</div>
+					<div class="d-flex flex-column flex-md-row">
+						<label for="loyalty">Points de fidélité :</label>
+						<p class="info-indent" name="loyalty"> {{ user.loyaltyPoints }}</p>
+					</div>
+					<div class="text-end">
+						<a class="btn btn-primary btn-sm " href="{{ path('profil_user_edit', {'id': user.id}) }}">
+							<i class="far fa-edit"></i>
+						</a>
+					</div>
+				</div>
+				<div class="d-flex flex-column h-25 text-start px-2 py-2">
+					<a href="">Historique de mes feedback</a>
+					<a href="">Historique de mes commandes</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

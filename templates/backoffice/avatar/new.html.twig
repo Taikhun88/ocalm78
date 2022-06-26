@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Ajouter un nouvel avatar
+{% endblock %}
+
+{% block content %}
+	<h1>Ajouter un nouvel avatar</h1>
+
+	{{ include('backoffice/avatar/_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_avatar_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

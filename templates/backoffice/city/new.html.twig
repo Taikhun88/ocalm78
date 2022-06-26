@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{ parent()}}
+	- Ajouter une nouvelle ville
+{% endblock %}
+
+{% block content %}
+	<h1>Ajouter une nouvelle ville</h1>
+
+	{{ include('backoffice/city/_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_city_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

@@ -1,7 +1,11 @@
 {% set currentRoute = app.request.get('_route') %}
 {% if route[1] != 'install' %}
 	<header>
-		<nav class="navbar navbar-expand-md">
+		<nav class="navbar navbar-expand-md d-flex flex-column">
+			<p class="bandeau-info mb-0 text-white">
+				<span class="bandeau-span">Nos jours ouvrés : Sam. Dim. et Lun. Livraison de 18h à 22h | Trappes, La Verrière, Montigny-Le-Br., Maurepas, Elancourt</span>
+			</p>
+			{# TODO ajouter breakpoint bandeau adapter vitesse ave padding right #}
 			<div class="container-fluid">
 				<a class="navbar-brand" href="{{path('app_index')}}">
 					<img class="logo" src="{{ asset('images/logo.png') }}" alt="">
@@ -27,7 +31,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="mx-1 nav-link {{ currentRoute == 'app_product_list' ? ' active' : '' }}" aria-current="page" href="{{ path('app_index') }}">
+							<a class="mx-1 nav-link {{ currentRoute == 'product_list' ? ' active' : '' }}" aria-current="page" href="{{ path('product_list') }}">
 								<i class="fas fa-hamburger light opacity-75"></i>
 								Nos produits
 							</a>
@@ -36,13 +40,10 @@
 							{% if app.user %}
 								<li class="nav-item dropdown">
 									<a class="dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										{% if app.user.image %}
-											<img class="rounded-pill" src="{{ asset('images/uploads/profil/' ~ app.user.image) }}" width="30" alt="Image du personnage {{ app.user.pseudo }}">
+										{% if app.user.avatar %}
+											<img class="rounded-pill" src="{{ asset('images/avatars/' ~ app.user.avatar.imagePath) }}" width="30" alt="Image du personnage {{ app.user.pseudo }}">
 										{% else %}
-											<svg xmlns="http://www.w3.org/2000/svg" width="30" fill="currentColor" class="bi bi-person-circle" viewbox="0 0 16 16">
-												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-												<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-											</svg>
+											<i class="fas fa-user-circle fa-lg"></i>
 										{% endif %}
 										{{app.user.pseudo}}
 									</a>

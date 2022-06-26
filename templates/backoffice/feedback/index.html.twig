@@ -1,0 +1,113 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Liste des feedback
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script src="{{ asset('js/feedbackIndex.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+	<h1>Liste des feedback</h1>
+
+	<div class="w-25 m-auto">
+		<a class="btn btn-outline-success btn-sm" href="{{ path('app_backoffice_feedback_new') }}">
+			<i class="fas fa-plus light opacity-75 fa-xs"></i>
+		</a>
+	</div>
+
+	<div id="divListCards" data-listfeedbacks="{{ feedback|json_encode }}" class="d-flex flex-column p-3">
+		{% for feedback in feedback %}
+			<div id="cardFeedback-{{ feedback.id }}" class="d-flex flex-column bg-dark my-1 rounded cardFeedback-active">
+				<div class="d-flex flex-row w-100">
+					<div class="w-25 d-flex flex-column align-items-center justify-content-center">
+						<img class="rounded-circle mt-3 img-fluid" src="{{ asset('images/avatars/' ~ feedback.user.avatar.imagePath) }}" width="80" alt="Image du personnage {{ feedback.user.pseudo }}">
+						<figcaption>{{ feedback.user.pseudo }}</figcaption>
+					</div>
+					<div class="d-flex flex-column text-center w-75">
+						<div class="w-100 text-center">
+							<h5 class="feedback-title mt-2">Feedback n° {{ feedback.id }}</h5>
+							<div class="abyss"></div>
+						</div>
+						<div class="d-flex flex-row w-100 text-start h-100">
+							<div class="w-75 d-flex flex-column">
+								<div data-status="{{ feedback.status }}" id="statusFeedback-{{ feedback.id }}" class="mb-3">Status :
+									{{ feedback.status ? 'validé <i class="far fa-check-square text-success"></i>' : 'non-validé <i class="far fa-clock text-orange"></i>' }}</div>
+								<div data-rating="{{ feedback.rating }}" id="ratingFeedback-{{ feedback.id }}">Note :
+									{% for star in 1..5 %}
+										{% set fillingStar = feedback.rating %}
+										<i class="fas fa-star {{ fillingStar >= star ? ' text-warning' : '' }}"></i>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="w-25 d-flex flex-column text-center">
+								<div class="mb-1">
+									<a class="btn btn-warning btn-sm inline-block mb-1" href="{{ path('app_backoffice_feedback_show', {'id': feedback.id}) }}">
+										<i class="far fa-eye"></i>
+									</a>
+								</div>
+								<div>
+									<a class="btn btn-primary btn-sm inline-block mb-1" href="{{ path('app_backoffice_feedback_edit', {'id': feedback.id}) }}">
+										<i class="far fa-edit"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="d-flex flex-column">
+					<div class="message-layout">
+						{{ feedback.message }}
+					</div>
+					<div class="message-date">
+						{% if feedback.updatedAt %}
+							Mis à jour le : {{ feedback.updatedAt|date('d-m-Y') }}
+						{% else %}
+							Rédigé le : {{ feedback.createdAt|date('d-m-Y') }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	{# <table class="table">
+								<thead>
+									<tr>
+										<th>Pseudo</th>
+										<th style="width: 50px;">Message</th>
+										<th>Note</th>
+										<th>Status</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for feedback in feedback %}
+										<tr>
+											<td>{{ feedback.user.pseudo }}</td>
+											<td>{{ feedback.message }}</td>
+											<td>{{ feedback.rating }}
+												/5</td>
+											<td>{{ feedback.status ? 'Validé' : 'Non-validé' }}</td>
+											<td>
+												<a class="btn btn-warning btn-sm inline-block mb-1" href="{{ path('app_backoffice_feedback_show', {'id': feedback.id}) }}">
+													<i class="far fa-eye"></i>
+												</a>
+												<a class="btn btn-primary btn-sm inline-block mb-1" href="{{ path('app_backoffice_feedback_edit', {'id': feedback.id}) }}">
+													<i class="far fa-edit"></i>
+												</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="6">Aucun feedback actuellement</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table> #}
+
+{% endblock %}

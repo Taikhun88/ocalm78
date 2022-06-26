@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Vue détaillée de l'image newsletter
+{% endblock %}
+
+{% block content %}
+	<h1>Vue détaillée de l'image newsletter</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ newsletter_image.id }}</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td><img class="img-fluid rounded" src="{{ newsletter_image.url }}" alt=""></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<a class="btn btn-primary btn-sm inline-block mb-2" href="{{ path('app_backoffice_newsletter_images_edit', {'id': newsletter_image.id}) }}">
+		<i class="far fa-edit"></i>
+	</a>
+
+	{{ include('backoffice/newsletter_images/_delete_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_newsletter_images_index') }}">
+		<i class="fas fa-reply-all"></i>
+	{% endblock %}

@@ -68,7 +68,7 @@ class RegistrationController extends AbstractController
             );
 
             $message = $translator->trans('Validate your account with email we went send.');
-            $this->addFlash('danger', $message);
+            $this->addFlash('info', $message);
 
             return $this->redirectToRoute('app_login');
         }
@@ -94,11 +94,9 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
-            //TODO flashh
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
             return $this->redirectToRoute('app_register');
         }
-        //TODO flashh
         $message = $translator->trans('Your email address has been verified.');
         $this->addFlash('success', $message);
         return $this->redirectToRoute('app_login');

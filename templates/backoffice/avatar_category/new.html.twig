@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Créer une nouvelle catégorie d'avatars
+{% endblock %}
+
+{% block content %}
+	<h1>Créer une nouvelle catégorie d'avatars</h1>
+
+	{{ include('backoffice/avatar_category/_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_avatar_category_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

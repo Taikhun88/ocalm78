@@ -2,7 +2,7 @@
 var app = {
     init: function () {
         // on selectionne le checkbox par sa classe
-        const checkMdp = document.querySelector(".form-check-input");
+        const checkMdp = document.querySelector("#flexSwitchCheckDefault.form-check-input");
 
         // si l imput avec la classe form-check-input est dans la page
         if (checkMdp) {
@@ -21,6 +21,63 @@ var app = {
                 td.addEventListener('click', back_user_index.handleClickUser);
             });
         }
+
+        const buttonSidebar = document.querySelector("#displayListLink");
+        if (buttonSidebar) {
+            buttonSidebar.addEventListener('click', backofficehome.handleClick);
+        }
+
+        const buttonNewsletterImages = document.querySelector('#addNewsletterImages');
+        if (buttonNewsletterImages) {
+            buttonNewsletterImages.addEventListener('click', back_newsletter.handleClickDisplayListImages)
+        }
+
+        const listOfImg = document.querySelectorAll('.newsletter-image');
+        if (listOfImg) {            
+            listOfImg.forEach(img => {
+                img.addEventListener('click', back_newsletter.handleClickAddImg);
+            });
+        }
+
+        const imgInDatabase = document.querySelectorAll('.actions-btn');
+        if (imgInDatabase) {
+            imgInDatabase.forEach(img => {
+                img.parentElement.firstElementChild.addEventListener('click', backNewsletterImg.handleClickDisplayBtn);
+            });
+        }
+
+        const notificationRequest = document.querySelectorAll('.fa-bell.notification-request');
+        if (notificationRequest) {
+            notificationRequest.forEach(bellRequest => {
+                bellRequest.addEventListener('click', backofficehome.handleClickDisplayRequest);
+           });
+        }
+
+        const closeRequest = document.querySelectorAll('.close-request');
+        if (closeRequest) {
+            closeRequest.forEach(closeRequestIcon => {
+                closeRequestIcon.addEventListener('click', backofficehome.handleClickCloseRequest);
+           });
+        }
+        
+        const div = document.querySelector(".carousel-item");
+        if (div) {
+            div.classList.add('active');
+        }
+
+        const prevCarousel = document.querySelector(".carousel-control-prev");
+        const nextCarousel = document.querySelector(".carousel-control-next");
+        
+        if (prevCarousel && nextCarousel) {
+            prevCarousel.addEventListener('click', carousel.handleClickPrev);
+            nextCarousel.addEventListener('click', carousel.handleClickNext);
+        }
+
+        const checkAvatarSelect = document.querySelector('#user_avatar');
+            if (checkAvatarSelect) {
+                avatar_select.init();
+            }
+        
     },
 };
 

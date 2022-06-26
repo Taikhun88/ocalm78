@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Créer une nouvelle catégorie de produits
+{% endblock %}
+
+{% block content %}
+	<h1>Créer une nouvelle catégorie de produits</h1>
+
+	{{ include('backoffice/product_category/_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_product_category_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

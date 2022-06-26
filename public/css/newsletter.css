@@ -1,0 +1,71 @@
+:root {
+    --primary: #9b2226;
+    --primary-light: #ba2a2fa2;   
+    --primary-dark:  #73191c;
+    --secondary: #03071e;
+    --secondary-light: #343a40;
+    --secondary-dark: #001219;
+    --success-color: #52b69a;
+    --danger-color: #d62828;
+    --white: #FFF;
+    --white-transparent: rgba(255, 255, 255, 0.7);
+    --yellow-mcdo: #fcbf49;
+}
+
+textarea {
+    width: 0px!important;
+    max-width: 500px;
+}
+
+.form-control {
+    width: 100%!important;
+}
+
+#addNewsletterImages {
+    width: 140px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.list_of_images {
+    width: 100%;
+    height: 300px;
+    /* background-color: rgba(255, 255, 0, 0.243); */
+    display: none!important;
+    padding: 10px;
+    overflow-y: auto;
+    border: 1px solid rgb(120, 0, 0);
+    border-radius: 15px;
+}
+
+.list_of_images.active {
+    display: flex!important;
+}
+
+.newsletter-image,
+.newsletter-img-bis
+ {
+    width: auto;
+    height: 125px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.newsletter-img-bis {
+    margin-bottom: 5px;  
+}
+
+.targeted-img-margin {
+    margin-bottom: 36px;
+}
+
+
+/* newsletter images twig */
+.actions-btn {
+    display: none!important;
+}
+
+.actions-btn.active {
+    display: flex!important;
+}

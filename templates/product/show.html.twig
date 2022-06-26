@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du plat
+{% endblock %}
+
+{% block body %}
+	<h4 class="text-center">Détails du plat</h4>
+
+	<div class="d-flex flex-column">
+		<div class="bg-dark d-flex flex-column flex-md-row justify-content-around p-2 w-75 m-auto rounded">
+			<img class="rounded img-size m-auto m-md-0 my-2 my-md-0" src="{{ asset('images/products/' ~ product.imageUpfront ) }}">
+			<img class="rounded img-size m-auto m-md-0 my-2 my-md-0" src="{{ asset('images/products/' ~ product.imageTop ) }}">
+			<img class="rounded img-size m-auto m-md-0 my-2 my-md-0" src="{{ asset('images/products/' ~ product.imageCloseup) }}">
+		</div>
+
+		<div class="bg-dark d-flex flex-column w-75 m-auto mt-3 rounded text-white">
+			<div class="d-flex flex-row">
+				<p class="m-auto">{{ product.description }}</p>
+			</div>
+			<div class="d-flex flex-column bg-dark py-3 rounded">
+				<div class="d-flex flex-column flex-md-row justify-content-around">
+					<div class="d-flex flex-column bg-red-light w-25 rounded card-label m-auto m-md-0 my-2">
+						<label class="text-decoration-underline" for="category">Catégorie :</label>
+						<p name="category" class="">{{ product.category }}</p>
+					</div>
+					<div class="d-flex flex-column bg-red-light w-25 rounded card-label m-auto m-md-0 my-2">
+						<label class="text-decoration-underline" for="ingredients">Ingrédients :</label>
+						<p name="ingredients" class="">{{ product.ingredients }}</p>
+					</div>
+					<div class="d-flex flex-column bg-red-light w-25 rounded card-label m-auto m-md-0 my-2">
+						<label class="text-decoration-underline" for="allergens">Allergènes :</label>
+						<p name="allergens" class="">{{ product.allergens }}</p>
+					</div>
+				</div>
+
+				<div class="d-flex flex-column flex-md-row justify-content-around mt-md-3">
+					<div class="d-flex flex-column bg-red-light w-25 rounded card-label m-auto m-md-0 my-2">
+						<label class="text-decoration-underline" for="weight">Poids :</label>
+						<p name="weight" class="">{{ product.weight }}</p>
+					</div>
+					<div class="d-flex flex-column bg-red-light w-25 rounded card-label m-auto m-md-0 my-2">
+						<label class="text-decoration-underline" for="points">Points :</label>
+						<p name="points" class="">{{ product.points }}</p>
+					</div>
+					<div class="d-flex flex-column bg-red-light w-25 rounded card-label m-auto m-md-0 my-2">
+						<label class="text-decoration-underline" for="price">Prix :</label>
+						<p name="price" class="">{{ product.price }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a class="text-light" href="{{ path('product_list') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

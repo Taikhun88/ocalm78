@@ -7,9 +7,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans %}Create new user{% endtrans %}</h1>
+	<h1>{% trans %}Create new user{% endtrans %}</h1>
 
-    {{ include('backoffice/user/_form.html.twig') }}
+	{{ include('backoffice/user/_form.html.twig') }}
 
-    <a class="btn btn-primary" href="{{ path('backoffice_user_index') }}">{% trans %}Back to list{% endtrans %}</a>
+	<a class="text-light" href="{{ path('backoffice_user_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
 {% endblock %}

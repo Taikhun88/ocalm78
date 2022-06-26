@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} - Liste des catégories d'avatars
+{% endblock %}
+
+{% block content %}
+	<h1>Liste des catégories d'avatars</h1>
+
+	<div class="w-25 m-auto">
+		<a class="btn btn-outline-success btn-sm" href="{{ path('app_backoffice_avatar_category_new') }}">
+			<i class="fas fa-plus light opacity-75 fa-xs"></i>
+		</a>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for avatar_category in avatar_categories %}
+				<tr>
+					<td>{{ avatar_category.id }}</td>
+					<td>{{ avatar_category.name }}</td>
+					<td>
+						<a class="btn btn-warning btn-sm inline-block" href="{{ path('app_backoffice_avatar_category_show', {'id': avatar_category.id}) }}">
+							<i class="far fa-eye"></i>
+						</a>
+						<a class="btn btn-primary btn-sm inline-block" href="{{ path('app_backoffice_avatar_category_edit', {'id': avatar_category.id}) }}">
+							<i class="far fa-edit"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Aucune catégorie d'avatar n'existe actuellement</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

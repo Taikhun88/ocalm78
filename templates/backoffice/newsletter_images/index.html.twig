@@ -1,0 +1,69 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} - Banque d'images de newsletter
+{% endblock %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<link rel="stylesheet" href="{{ asset('css/newsletter.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script src="{{ asset('js/backNewsletterImg.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+	<h1>Banque d'images de newsletter</h1>
+
+	<div class="w-25 m-auto">
+		<a class="btn btn-outline-success btn-sm" href="{{ path('app_backoffice_newsletter_images_new') }}">
+			<i class="fas fa-plus light opacity-75 fa-xs"></i>
+		</a>
+	</div>
+
+	<div class="d-flex w-75 flex-row flex-wrap m-auto justify-content-between">
+		{% for newsletter_image in newsletter_images %}
+			<div class="d-flex flex-column">
+				<img id="img-actions-{{ newsletter_image.id }}" class="newsletter-img-bis targeted-img-margin" src="{{ newsletter_image.url }}" alt="">
+				<div id='actions-btn-{{ newsletter_image.id }}' class='actions-btn d-flex flex-row inline-block justify-content-center'>
+					<a class="btn btn-warning btn-sm mx-1" href="{{ path('app_backoffice_newsletter_images_show', {'id': newsletter_image.id}) }}">
+						<i class="far fa-eye"></i>
+					</a>
+					<a class="btn btn-primary btn-sm mx-1" href="{{ path('app_backoffice_newsletter_images_edit', {'id': newsletter_image.id}) }}">
+						<i class="far fa-edit"></i>
+					</a>
+				</div>
+			</div>
+		{% else %}
+			<p class="m-auto mt-5">Il n'y a actuellement aucune image dans votre bibliothèque newsletter</p>
+		{% endfor %}
+	</div>
+
+	{# <table class="table">
+				        <thead>
+				            <tr>
+				                <th>Id</th>
+				                <th>Url</th>
+				                <th>actions</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				        {% for newsletter_image in newsletter_images %}
+				            <tr>
+				                <td>{{ newsletter_image.id }}</td>
+				                <td><img class="w-25 rounded" src="{{ newsletter_image.url }}" alt=""></td>
+				                <td>
+				                    <a href="{{ path('app_backoffice_newsletter_images_show', {'id': newsletter_image.id}) }}">show</a>
+				                    <a href="{{ path('app_backoffice_newsletter_images_edit', {'id': newsletter_image.id}) }}">edit</a>
+				                </td>
+				            </tr>
+				        {% else %}
+				            <tr>
+				                <td colspan="3">no records found</td>
+				            </tr>
+				        {% endfor %}
+				        </tbody>
+				    </table> #}
+
+{% endblock %}

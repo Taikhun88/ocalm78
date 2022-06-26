@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Détails de l'image newsletter
+{% endblock %}
+
+{% block content %}
+	<h1>Détails de l'image newsletter</h1>
+
+	{{ include('backoffice/newsletter_images/_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_newsletter_images_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+{% endblock %}

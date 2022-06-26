@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Créer une nouvelle newsletter
+{% endblock %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<link rel="stylesheet" href="{{ asset('css/newsletter.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script src="{{ asset('js/back_newsletter.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+	<h1>Créer une nouvelle newsletter</h1>
+	<div class="d-flex flex-row justify-content-around">
+		<div class='d-flex flex-column w-50'>
+			{{ include('backoffice/newsletter/_form.html.twig') }}
+
+			<a class="text-light" href="{{ path('app_backoffice_newsletter_index') }}">
+				<i class="fas fa-reply-all"></i>
+			</a>
+		</div>
+	</div>
+{% endblock %}

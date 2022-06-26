@@ -1,0 +1,69 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} - Liste des newsletters
+{% endblock %}
+
+{% block content %}
+	<h1>Liste des newsletters</h1>
+
+	<div class="w-25 m-auto">
+		<a class="btn btn-outline-success btn-sm" href="{{ path('app_backoffice_newsletter_new') }}">
+			<i class="fas fa-plus light opacity-75 fa-xs"></i>
+		</a>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				{# <th>Titre</th> #}
+				<th>Date de création</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for newsletter in newsletters %}
+				<tr>
+					<td>{{ newsletter.id }}</td>
+					{# <td>{{ newsletter.title }}</td> #}
+					<td>{{ newsletter.createdAt ? newsletter.createdAt|date('d-m-Y') : '' }}</td>
+					<td>
+						{% if newsletter.status == 0 %}
+							<div class="d-flex flex-column">
+								<div>
+									<i class="fas fa-pencil-alt"></i>
+								</div>
+								<div>Brouillon</div>
+							</div>
+						{% elseif newsletter.status == 1 %}
+							<div class="d-flex flex-column">
+								<div>
+									<i class="far fa-paper-plane"></i>
+								</div>
+								<div>Envoyé</div>
+							</div>
+						{% endif %}
+					</td>
+					<td>
+						<a class="btn btn-warning btn-sm inline-block" href="{{ path('app_backoffice_newsletter_show', {'id': newsletter.id}) }}">
+							<i class="far fa-eye"></i>
+						</a>
+						<a class="btn btn-primary btn-sm inline-block" href="{{ path('app_backoffice_newsletter_edit', {'id': newsletter.id}) }}">
+							<i class="far fa-edit"></i>
+						</a>
+{# 
+						{% if newsletter.status == 0 %}
+							<a href="{{ path('app_backoffice_newsletter_validate', {'id': newsletter.id}) }}">Valider</a>
+						{% endif %} #}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">Aucune newsletter existante actuellement</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

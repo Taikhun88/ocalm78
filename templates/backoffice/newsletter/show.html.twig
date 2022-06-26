@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Vue détaillée de la newsletter
+{% endblock %}
+
+{% block content %}
+	<h1>Vue détaillée de la newsletter</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ newsletter.id }}</td>
+			</tr>
+			<tr>
+				<th>Titre</th>
+				<td>{{ newsletter.title }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>
+					{% if newsletter.status == 0 %}
+						Brouillon
+					{% elseif newsletter.status == 1 %}
+						Envoyé
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>Message</th>
+				<td>{{ newsletter.message|raw }}</td>
+			</tr>
+			<tr>
+				<th>Created_at</th>
+				<td>{{ newsletter.createdAt ? newsletter.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<a class="btn btn-primary btn-sm inline-block mb-2" href="{{ path('app_backoffice_newsletter_edit', {'id': newsletter.id}) }}">
+		<i class="far fa-edit"></i>
+	</a>
+
+	{{ include('backoffice/newsletter/_delete_form.html.twig') }}
+
+	<a class="text-light" href="{{ path('app_backoffice_newsletter_index') }}">
+		<i class="fas fa-reply-all"></i>
+	</a>
+
+{% endblock %}

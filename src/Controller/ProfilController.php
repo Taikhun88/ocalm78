@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\ChangeEmailType;
+use App\Form\UserProfileType;
+use App\Repository\UserRepository;
 use App\Service\ImageUploader;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,11 +18,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProfilController extends AbstractController
 {
-    /** Route du profil du l utilisateur */
-    #[Route('/profil/{id}', name: 'profil_user', methods: ['GET', 'POST'])]
-    public function profilUser(Request $request, TranslatorInterface $translator, User $user, ImageUploader $imageUploader, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    // TODO créer une route /profil/id avec une card qui regroupe les infos essentielles + action dirigeant vers edit profil/id/edit
+    #[Route('/profil/{id}', name: 'profil_user', methods: 'GET')]
+    public function profilUser(User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $this->denyAccessUnlessGranted('USER_VIEW', $user, "Désolé mais ... non, tu ne verra pas le profil des autres comptes' !");
+
+        return $this->renderForm('main/profiluser.html.twig', [
+            'user' => $user,           
+        ]);
+    }
+
+    /** Route du profil du l utilisateur */
+    #[Route('/profil/{id}/edit', name: 'profil_user_edit', methods: ['GET', 'POST'])]
+    public function profilUserEdit(Request $request, TranslatorInterface $translator, User $user, ImageUploader $imageUploader, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UserProfileType::class, $user);
         $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('USER_VIEW', $user, "Désolé mais ... non, tu ne verra pas le profil des autres comptes' !");
@@ -35,13 +48,38 @@ class ProfilController extends AbstractController
             unset($actualRoles[2]);
             $user->setRoles($actualRoles);
             $entityManager->flush();
-            //TODO flashh
             $message = $translator->trans('Profil updated.');
             $this->addFlash('success', $message);
             return $this->redirectToRoute('app_index');
         }
 
-        return $this->renderForm('main/profiluser.html.twig', [
+        return $this->renderForm('main/profiledit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/profil/{id}/edit/email', name: 'profil_user_edit_email', methods: ['GET', 'POST'])]
+    public function changeUserEmail(User $user, Request $request, UserRepository $userRepository)
+    {
+        $form = $this->createForm(ChangeEmailType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('plainPassword')->getData();
+            if (password_verify($plainPassword, $user->getPassword())) 
+            {
+                $userRepository->add($user, true);                
+                $this->addFlash('success', 'Votre email a bien été modifié.');
+                return $this->redirectToRoute('profil_user', ['id' =>  $user->getId()]);
+            } else
+            {
+                $this->addFlash('danger', 'Mot de passe invalide.');
+                return $this->redirectToRoute('profil_user_edit_email', ['id' =>  $user->getId()]);
+            }
+        }
+
+        return $this->renderForm('main/changeemail.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -53,7 +91,6 @@ class ProfilController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
-            //TODO systeme de suppression différé
             $entityManager->flush();
         }
 

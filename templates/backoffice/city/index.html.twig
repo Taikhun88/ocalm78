@@ -1,0 +1,48 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{ parent()}}
+	- Liste des villes
+{% endblock %}
+
+{% block content %}
+	<h1>Liste des villes</h1>
+
+	<div class="w-25 m-auto">
+		<a class="btn btn-outline-success btn-sm" href="{{ path('app_backoffice_city_new') }}">
+			<i class="fas fa-plus light opacity-75 fa-xs"></i>
+		</a>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Code postal</th>
+				<th>Ville</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for city in cities %}
+				<tr>
+					<td>{{ city.id }}</td>
+					<td>{{ city.zipCode }}</td>
+					<td>{{ city.cityName }}</td>
+					<td>
+						<a class="btn btn-warning btn-sm inline-block" href="{{ path('app_backoffice_city_show', {'id': city.id}) }}">
+							<i class="far fa-eye"></i>
+						</a>
+						<a class="btn btn-primary btn-sm inline-block" href="{{ path('app_backoffice_city_edit', {'id': city.id}) }}">
+							<i class="far fa-edit"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">Aucune ville créée actuellement</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

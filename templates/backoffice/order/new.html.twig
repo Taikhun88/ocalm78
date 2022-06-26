@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{parent()}} - Créer une commande{% endblock %}
+
+{% block content %}
+    <h1>Créer une commande</h1>
+
+    {{ include('backoffice/order/_form.html.twig') }}
+
+    <a class="text-light" href="{{ path('app_backoffice_order_index') }}"><i class="fas fa-reply-all"></i></a>
+{% endblock %}

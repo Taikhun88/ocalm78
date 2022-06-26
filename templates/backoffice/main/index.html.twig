@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	-
+	{% trans %}Home backoffice{% endtrans %}
+{% endblock %}
+
+{% block content %}
+	<h1>{% trans %}Welcome to backoffice{% endtrans %}</h1>
+{% endblock %}

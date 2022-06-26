@@ -1,0 +1,11 @@
+<div class="position-absolute top-0 start-50 translate-middle-x mt-5">
+    	{% for label, messages in app.flashes %}
+    		{% for message in messages %}
+    			<div class="alert alert-{{ label }}" role="alert">
+    				{{ message }}
+    				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    			</div>
+    		{% endfor %}
+    	{% endfor %}
+    </div>
+    

@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{parent()}}
+    -
+    {% trans %}Edit User{% endtrans %}
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans %}Edit user{% endtrans %} {{ user.pseudo }}</h1>
+
+    {{ include('backoffice/user/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a class="btn btn-primary my-1" href="{{ path('backoffice_user_index') }}">{% trans %}Back to list{% endtrans %}</a>
+
+    {{ include('backoffice/user/_delete_form.html.twig') }}
+{% endblock %}

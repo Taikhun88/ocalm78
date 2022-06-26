@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	-
+	{% trans %}Account{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	<h1>{% trans %}Edit your account{% endtrans %}</h1>
+
+	{{ include('main/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('main/_delete_form.html.twig') }}
+{% endblock %}

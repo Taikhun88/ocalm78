@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	-
+	{% trans %}New User{% endtrans %}
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans %}Create new user{% endtrans %}</h1>
+
+    {{ include('backoffice/user/_form.html.twig') }}
+
+    <a class="btn btn-primary" href="{{ path('backoffice_user_index') }}">{% trans %}Back to list{% endtrans %}</a>
+{% endblock %}

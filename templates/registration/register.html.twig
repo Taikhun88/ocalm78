@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	-
+	{% trans %}Register{% endtrans %}
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script src="{{ asset('js/mdp.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+
+	<h1 class="h3 mb-3 font-weight-normal">{% trans %}Register{% endtrans %}</h1>
+
+	{{ form_start(registrationForm,  {'attr': {'novalidate': 'novalidate'}}) }}
+	{# checkbox switch pour voir le mdp #}
+	<hr class="dropdown-divider">
+	<div class="form-check form-switch text-center">
+		<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+		<label class="form-check-label" for="flexSwitchCheckDefault" data-lang="{{lang}}">{% trans %}Hide mdp{% endtrans %}</label>
+	</div>
+	{# <div class="vertical-divider"></div> #}
+	<hr class="dropdown-divider">
+	{# /checkbox switch #}
+	{{ form_row(registrationForm.email) }}
+	{{ form_row(registrationForm.plainPassword, ) }}
+	{{ form_row(registrationForm.pseudo) }}
+
+	<button type="submit" class="btn btn-lg btn-primary">{% trans %}Register{% endtrans %}</button>
+	{{ form_end(registrationForm) }}
+{% endblock %}

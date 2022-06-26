@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Gj4wO9f" resname="Config validated.">
+        <source>Config validated.</source>
+        <target>Config validée.</target>
+      </trans-unit>
+      <trans-unit id="bQ3_nkp" resname="Install validated.">
+        <source>Install validated.</source>
+        <target>Installation validée.</target>
+      </trans-unit>
+      <trans-unit id="TIt.C0k" resname="User created.">
+        <source>User created.</source>
+        <target>Utilisateur créé.</target>
+      </trans-unit>
+      <trans-unit id="kAmqHqZ" resname="You cant modify other administrator, contact the Super Administrator !">
+        <source>You cant modify other administrator, contact the Super Administrator !</source>
+        <target>Vous ne pouvez pas modifier vos collegues, contactez le Super Administrateur !</target>
+      </trans-unit>
+      <trans-unit id="mt3vwCu" resname="User updated.">
+        <source>User updated.</source>
+        <target>Utilisateur mis à jour.</target>
+      </trans-unit>
+      <trans-unit id="tMid.Wa" resname="You cantdelete other administrator, contact the Super Administrator !">
+        <source>You cantdelete other administrator, contact the Super Administrator !</source>
+        <target>Vous ne pouvez pas supprimer vos collegues, contactez le Super Administrateur !</target>
+      </trans-unit>
+      <trans-unit id="5MoVwQc" resname="Profil updated.">
+        <source>Profil updated.</source>
+        <target>Profil mis à jour.</target>
+      </trans-unit>
+      <trans-unit id="UMRNIvT" resname="Please Confirm your Email.">
+        <source>Please Confirm your Email.</source>
+        <target>Veuillez confirmer votre email.</target>
+      </trans-unit>
+      <trans-unit id="NPcZQeG" resname="Validate your account with email we went send.">
+        <source>Validate your account with email we went send.</source>
+        <target>Validez votre compte avec l'email que nous venons d'envoyer.</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="FwtzYYO" resname="See mdp">
+        <source>See mdp</source>
+        <target>Voir le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="2n2tnlD" resname="Hello and welcome">
+        <source>Hello and welcome</source>
+        <target>Bonjour et bienvenue</target>
+      </trans-unit>
+      <trans-unit id="ZVRoczd" resname="Please confirm your email address by clicking on the following link :">
+        <source>Please confirm your email address by clicking on the following link :</source>
+        <target>Veuillez confirmer votre email en cliquant sur le lien suivant :</target>
+      </trans-unit>
+      <trans-unit id="nZzX3uO" resname="Activate my account">
+        <source>Activate my account</source>
+        <target>Activer mon compte</target>
+      </trans-unit>
+      <trans-unit id="gAd5VKj" resname="Cheers.">
+        <source>Cheers.</source>
+        <target>A bientôt.</target>
+      </trans-unit>
+      <trans-unit id="0m6uh4K" resname="403">
+        <source>403</source>
+        <target>403</target>
+      </trans-unit>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="4mfTQ4I" resname="Profil">
+        <source>Profil</source>
+        <target>Profil</target>
+      </trans-unit>
+      <trans-unit id="O5hKHKN" resname="Backoffice">
+        <source>Backoffice</source>
+        <target>Administration</target>
+      </trans-unit>
+      <trans-unit id="awzJBNC" resname="Users">
+        <source>Users</source>
+        <target>Utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="h_iau0w" resname="Config">
+        <source>Config</source>
+        <target>Config</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Déconnexion</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="AHygF_T" resname="Configs">
+        <source>Configs</source>
+        <target>Configurations</target>
+      </trans-unit>
+      <trans-unit id="NW0SYFZ" resname="Edit Config">
+        <source>Edit Config</source>
+        <target>Editer les configurations</target>
+      </trans-unit>
+      <trans-unit id="Ht0hse3" resname="Back to backoffice index">
+        <source>Back to backoffice index</source>
+        <target>Retourner a l'accueil</target>
+      </trans-unit>
+      <trans-unit id="xPqkIqy" resname="Home backoffice">
+        <source>Home backoffice</source>
+        <target>Accueil de l'administration</target>
+      </trans-unit>
+      <trans-unit id="5YKdVg3" resname="Welcome to backoffice">
+        <source>Welcome to backoffice</source>
+        <target>Bienvenue sur l'accueil de l'administration</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>Utilisateur</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>Revenir à la liste</target>
+      </trans-unit>
+      <trans-unit id="ezuwN7u" resname="User index">
+        <source>User index</source>
+        <target>__User index</target>
+      </trans-unit>
+      <trans-unit id="ABU5vOP" resname="List of users">
+        <source>List of users</source>
+        <target>Liste des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="hDMatXa" resname="Create new user">
+        <source>Create new user</source>
+        <target>Créer un nouvel utilisateur</target>
+      </trans-unit>
+      <trans-unit id="yo6CbZw" resname="Avatar">
+        <source>Avatar</source>
+        <target>Avatar</target>
+      </trans-unit>
+      <trans-unit id="4LcUv5A" resname="pseudo">
+        <source>pseudo</source>
+        <target>Pseudo</target>
+      </trans-unit>
+      <trans-unit id="BH9Ys5T" resname="Pseudo">
+        <source>Pseudo</source>
+        <target>Pseudo</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target>Action</target>
+      </trans-unit>
+      <trans-unit id="FhROOvB" resname="No Users found">
+        <source>No Users found</source>
+        <target>Aucun utilisateur trouvé</target>
+      </trans-unit>
+      <trans-unit id="Vjoccd8" resname="Delete account ?">
+        <source>Delete account ?</source>
+        <target>Supprimer le compte ?</target>
+      </trans-unit>
+      <trans-unit id="6KiDUxl" resname="Edit User">
+        <source>Edit User</source>
+        <target>Modifier l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="BbiNGPw" resname="Edit user">
+        <source>Edit user</source>
+        <target>Modifier l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="MVJ_u5A" resname="New User">
+        <source>New User</source>
+        <target>Nouvel utilisateur</target>
+      </trans-unit>
+      <trans-unit id="Vpykn0q" resname="Install">
+        <source>Install</source>
+        <target>Installation</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="fhsNVkH" resname="Account">
+        <source>Account</source>
+        <target>Compte</target>
+      </trans-unit>
+      <trans-unit id="4kbSPYC" resname="Edit your account">
+        <source>Edit your account</source>
+        <target>Modifier votre compte</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>Vous êtes déjà connecté en tant que</target>
+      </trans-unit>
+      <trans-unit id="dDUw20Q" resname="Please sign in">
+        <source>Please sign in</source>
+        <target>Veuillez vous connecter</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="t0Bw_Q6" resname="Repeat password">
+        <source>Repeat password</source>
+        <target>Répétez le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="V8UXVjD" resname="Hide mdp">
+        <source>Hide mdp</source>
+        <target>Cacher le mot de pase</target>
+      </trans-unit>
+      <trans-unit id="6YrxBbw" resname="Site name">
+        <source>Site name</source>
+        <target>Nom du site</target>
+      </trans-unit>
+      <trans-unit id="BBxhpTy" resname="Pseudo email">
+        <source>Pseudo email</source>
+        <target>Auteur des mails</target>
+      </trans-unit>
+      <trans-unit id="d3eUBYx" resname="Choose avatar">
+        <source>Choose avatar</source>
+        <target>Chercher un avatar</target>
+      </trans-unit>
+      <trans-unit id="FHNqLrn" resname="Role">
+        <source>Role</source>
+        <target>Role</target>
+      </trans-unit>
+      <trans-unit id="bv5ePAv" resname="Modo">
+        <source>Modo</source>
+        <target>Modérateur</target>
+      </trans-unit>
+      <trans-unit id="wcIksDz" resname="Admin">
+        <source>Admin</source>
+        <target>Administrateur</target>
+      </trans-unit>
+      <trans-unit id="zVX3M_I" resname="Super Admin">
+        <source>Super Admin</source>
+        <target>Super Administrateur</target>
+      </trans-unit>
+      <trans-unit id="87wG9uu" resname="This link will expire in">
+        <source>This link will expire in</source>
+        <target>Ce lien expirera dans</target>
+      </trans-unit>
+      <trans-unit id="kQWnsB7" resname="Your email address has been verified.">
+        <source>Your email address has been verified.</source>
+        <target>Votre adresse mail est validée.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

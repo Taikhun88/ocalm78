@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Saisissez votre commande{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/order.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% include "./order/partials/_sum_up_order.html.twig" %}
+{% endblock %}

@@ -23,9 +23,11 @@ class Order
     private $delivery_date;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotNull(message: "Merci d'indiquer une adresse postale")]
     private $address;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Merci de saisir un numéro de téléphone")]
     #[Assert\Regex('/^0[0-9]{9}/', message: 'Merci d\'indiquer un numéro valide')]
     private $phone;
 
@@ -46,6 +48,7 @@ class Order
     private $details_order = [];
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Merci de saisir un email")]
     #[Assert\Email(message: "user.email.notemail")]
     private $email;
 
@@ -58,6 +61,12 @@ class Order
     #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private $city;
+
+    #[ORM\Column(type: 'float')]
+    private $totalPrice;
+
+    #[ORM\Column(type: 'integer')]
+    private $points;
 
     public function getId(): ?int
     {
@@ -204,6 +213,30 @@ class Order
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }

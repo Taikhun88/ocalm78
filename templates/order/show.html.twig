@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos commandes
+{% endblock %}
+
+{% block body %}
+	<h1 class="my-3 text-center">Mes commandes</h1>
+	<div class="d-flex flex-column justify-content-center flex-wrap text-center">
+		{% for key, listOrder in listOfOrders %}
+			<div>
+				<h2 class="productsCategory">{{ listOfOrdersHeaders[loop.index0] }}</h2>
+				<div class="row d-flex flex-row justify-content-between w-95 m-auto">
+					{% for order in listOrder %}
+						<div class="col-12 col-md-5 bg-dark mb-3 rounded d-flex flex-column text-white  py-2">
+							<h6 class="text-center bg-danger py-1 rounded">{{ order.getOrderNumber }}</h6>
+							<div class="d-flex flex-column" type="historicOrderDetails">
+								{% for order in order.detailsOrder %}
+									{% for product in products %}
+										{% if product.id == order.id %}
+											<div class="d-flex flex-row justify-content-between">
+												<div class="w-50 text-start">{{ product.name }}</div>
+												<div class="w-25 text-center">x
+													{{ order.qty }}</div>
+												{% set productTotalPrice = order.qty * order.price %}
+												<div class="w-25 text-end">{{ productTotalPrice|format_number({fraction_digit: 2}) }}
+													€</div>
+											</div>
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+							</div>
+							<div class="d-flex flex-row justify-content-between">
+								<div class="w-50 text-start"></div>
+								<div class="w-25 text-center">TOTAL</div>
+								<div class="w-25 text-end" style="padding-right:5px;">{{ order.getTotalPrice|format_number({fraction_digit: 2}) }}
+									€</div>
+							</div>
+							<div class="d-flex flex-row">
+								<div>Livraison le
+									{{ order.getDeliveryDate|date('d-m-Y') }}
+									à
+									{{ order.getDeliveryDate|date('h:i') }}</div>
+							</div>
+							<div class="d-flex flex-row">
+								<div>Au
+									{{ order.getAddress }}
+									à
+									{{ order.city }}</div>
+							</div>
+							<div class="d-flex flex-row">
+								<div>Fidélité :
+									{{ order.getPoints }}
+									<i class="fas fa-award fa-md text-warning"></i>
+								</div>
+							</div>
+							{% if order.getStatus < 2  %}
+								{% include "order/_cancel_form.html.twig" %}
+							{% endif %}
+						</div>
+					{% else %}
+						<p>Aucune commande disponible pour cette section actuellement</p>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

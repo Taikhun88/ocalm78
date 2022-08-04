@@ -16,7 +16,6 @@ class FeedbackType extends AbstractType
     {   
         $dateTime = new DateTime();
         // $dateTime2 = new DateTime();
-        // TODO refaire le delivery date avec calcul
         // $timeStampForm = $dateTime->getTimestamp();
         // $oneDay = 24 * 60 * 60;
         // $timeStampFinal = $timeStampForm + $oneDay;

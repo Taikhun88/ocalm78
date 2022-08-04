@@ -14,7 +14,6 @@ export default class extends Controller {
 
     _onPreConnect(event) {
         // The chart is not yet created
-        console.log(event.detail.options); // You can access the chart options using the event details
 
         // For instance you can format Y axis
         event.detail.options.scales = {
@@ -32,7 +31,6 @@ export default class extends Controller {
 
     _onConnect(event) {
         // The chart was just created
-        console.log(event.detail.chart); // You can access the chart instance using the event details
 
         // For instance you can listen to additional events
         event.detail.chart.options.onHover = (mouseEvent) => {

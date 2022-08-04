@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations de livraison
+{% endblock %}
+
+{% block body %}
+	<h1>Informations de livraison</h1>
+	<div id="order_form" class="active" data-step="step">
+		{{ form_start(orderForm,{'attr': {'novalidate': 'novalidate'}}) }}
+		{# {{ form_row(orderForm.delivery_date) }} #}
+		<div class="d-flex flex-column mb-3">
+			<label class="label-payment-mode" for="delivery_date">Date de livraison</label>
+			<input class="select-payment-mode m-auto" type="text" name="delivery_date" value="{{ currentDate|json_encode }}">
+		</div>
+		<div class="d-flex flex-column mb-3">
+			<label class="label-payment-mode" for="payment-mode">Mode de paiement</label>
+			<select class="select-payment-mode m-auto" name="payment-mode" id="payment-mode">
+				<option value="0">Paypal</option>
+				<option value="1">Espèces</option>
+			</select>
+			{% if form_errors(orderForm) %}
+				{{ form_errors(orderForm)|raw }}
+			{% endif %}
+		</div>
+		{{ form_row(orderForm.address) }}
+		{{ form_row(orderForm.city) }}
+		{{ form_row(orderForm.phone) }}
+		{{ form_row(orderForm.customer_request) }}
+		{{ form_row(orderForm.email) }}
+		<button type="submit" class="btn btn-primary mt-3">Confirmer</button>
+
+		{{ form_end(orderForm) }}
+		<a class="text-light" href="{{ path('app_order') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
+	</div>
+{% endblock %}

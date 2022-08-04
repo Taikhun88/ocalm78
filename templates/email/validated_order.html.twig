@@ -1,0 +1,67 @@
+{% apply inline_css(source('@styles/styles.css')) %}
+<p style="font-size:16px;">Bonjour, </p>
+<p style="font-size:16px;">{{ text }}</p>
+<h3 class="title-mail">Récapitulatif de votre commande</h3>
+<div class="parent-container">
+	<div class="div-header">
+		<div class="header">
+			<span class="header-td">
+				<span class="header-td-span-plat">NOM DU PLAT</span>
+			</span>
+			<span class="header-td">
+				<span class="header-td-span">QUANTITE</span>
+			</span>
+			<span class="header-td">
+				<span class="header-td-span">TOTAL UNITAIRE</span>
+			</span>
+		</div>
+	</div>
+	<div class="div-product">
+		{% for details in order.getDetailsOrder() %}
+			<div class="product-item">
+				<span class="product-item-td">
+					<span class="product-item-span-name">{{ listNameProducts[loop.index0] }}</span>
+				</span>
+				<span class="product-item-td">
+					<span class="product-item-span">{{ details.qty }}</span>
+				</span>
+				<span class="product-item-td">
+					<span type="end" class="product-item-span">{{ (details.qty * details.price)|format_number({fraction_digit: 2}) }}
+						€</span>
+				</span>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="div-footer">
+		<div class="footer">
+			<span class="header-td">
+				<span class="header-td-span-plat"></span>
+			</span>
+			<span class="header-td">
+				<span class="header-td-span" style="text-align:end;">TOTAL</span>
+			</span>
+			<span class="header-td">
+				<span type="end" class="product-item-span" style="width:80px;">{{ order.getTotalPrice|format_number({fraction_digit: 2}) }}
+					€</span>
+			</span>
+		</div>
+
+	</div>
+</div>
+<div class="details-delivery" style="margin-top:10px;">
+	A livrer le
+	{{ order.deliveryDate|date('l')|trans }}
+	{{ order.deliveryDate|date('j')|trans }}
+	{{ order.deliveryDate|date('F')|trans }}
+	à
+	{{ order.getDeliveryDate|date('H') }}h{{ order.getDeliveryDate|date('i') }}
+</div>
+<div class="details-delivery">
+	Au
+	{{ order.getAddress }}
+	{{ order.getCity }}
+</div>
+
+<div class="signature">{{ signature }}</div>
+
+{% endapply %}

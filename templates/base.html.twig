@@ -17,6 +17,7 @@
 			<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 			<link rel="stylesheet" href="{{ asset('css/textareaWithHTML.css') }}">
 			<link rel="icon" href="{{ asset('images/favicon.png') }}"/>
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
@@ -27,15 +28,43 @@
 			<script src="{{ asset('js/app.js') }}"></script>
 			<script src="{{ asset('js/TextareaWithHTML.js') }}"></script>
 			<script src="{{ asset('js/avatar_select.js') }}"></script>
+			<script src="{{ asset('js/backofficehome.js') }}"></script>
+			<script src="{{ asset('js/dynamicTime.js') }}"></script>
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
 	<body>
-		{% include "partials/_header.html.twig" %}
+	<div id="currentRoute" type="hidden" data-data="{{ currentRoute }}">	</div>
+		{% include "partials/_header_attempt.html.twig" %}
 
 		{% include "partials/_flash.html.twig" %}
 
+		<div class="d-flex flex-row">
+			{% if app.user and is_granted('ROLE_ADMIN') %}
+				<div id="menudecote" class="d-flex flex-row">
+					<div id="listLink" class="text-light listLinkInactive">
+						{% include "backoffice/partials/links.html.twig" %}
+					</div>
+					<button id="displayListLink">
+						<i id="buttonSidebar" class="fas fa-chevron-right text-danger"></i>
+					</button>
+				</div>
+			{% endif %}
+
+			{% if Panier.showOrderDetails|length >= 1 %}
+				<div id="panierdecote" class="d-flex flex-row">
+					<button id="displayPanier">
+						<i class="fas fa-shopping-cart fa-flip-horizontal text-danger" id="buttonPanier"></i>
+					</button>
+					<div id="listPanier" class="text-light panierInactive">
+						{% include "partials/_panier.html.twig" %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+
 		<main class="container-fluid text-center py-3 px-0"> {% block body %}{% endblock %}
+
 			</main>
 		</body>
 	</html>

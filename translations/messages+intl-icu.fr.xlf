@@ -251,87 +251,107 @@
       </trans-unit>
       <trans-unit id="seAdKJo" resname="The password is invalid.">
         <source>The password is invalid.</source>
-        <target>__The password is invalid.</target>
+        <target>Le mot de passe est incorrect.</target>
       </trans-unit>
       <trans-unit id="X0VtLAs" resname="No account with this email.">
         <source>No account with this email.</source>
-        <target>__No account with this email.</target>
+        <target>Identifiant invalide</target>
       </trans-unit>
-      <trans-unit id="X0VtLAA" resname="Monday">
+      <trans-unit id="agDfwdy" resname="Monday">
         <source>Monday</source>
         <target>Lundi</target>
       </trans-unit>
-      <trans-unit id="X0VtLAB" resname="Tuesday">
+      <trans-unit id="fYrx3hJ" resname="Tuesday">
         <source>Tuesday</source>
         <target>Mardi</target>
       </trans-unit>
-      <trans-unit id="X0VtLAC" resname="Wednesday">
+      <trans-unit id="wKbMgpz" resname="Wednesday">
         <source>Wednesday</source>
         <target>Mercredi</target>
       </trans-unit>
-      <trans-unit id="X0VtLAD" resname="Thursday">
+      <trans-unit id=".CZiBi." resname="Thursday">
         <source>Thursday</source>
         <target>Jeudi</target>
       </trans-unit>
-      <trans-unit id="X0VtLAE" resname="Friday">
+      <trans-unit id="4h8.Nyp" resname="Friday">
         <source>Friday</source>
         <target>Vendredi</target>
       </trans-unit>
-      <trans-unit id="X0VtLAF" resname="Saturday">
+      <trans-unit id="2_Ncc2P" resname="Saturday">
         <source>Saturday</source>
         <target>Samedi</target>
       </trans-unit>
-      <trans-unit id="X0VtLAG" resname="Sunday">
+      <trans-unit id="hz.vdg5" resname="Sunday">
         <source>Sunday</source>
         <target>Dimanche</target>
       </trans-unit>
-      <trans-unit id="em2FljN" resname="January">
+      <trans-unit id="NwguaN_" resname="January">
         <source>January</source>
         <target>Janvier</target>
       </trans-unit>
-      <trans-unit id="U_KXW15" resname="February">
+      <trans-unit id="yHfG.0B" resname="February">
         <source>February</source>
         <target>Fevrier</target>
       </trans-unit>
-      <trans-unit id="_nW1wl." resname="March">
+      <trans-unit id="nZWizw1" resname="March">
         <source>March</source>
         <target>Mars</target>
       </trans-unit>
-      <trans-unit id="qmiQgpU" resname="April">
+      <trans-unit id="Sv5uoVD" resname="April">
         <source>April</source>
         <target>Avril</target>
       </trans-unit>
-      <trans-unit id="7k2YjGX" resname="May">
+      <trans-unit id="jHj_W5k" resname="May">
         <source>May</source>
         <target>Mai</target>
       </trans-unit>
-      <trans-unit id="wPoe_GR" resname="June">
+      <trans-unit id="1YCMDgp" resname="June">
         <source>June</source>
         <target>Juin</target>
       </trans-unit>
-      <trans-unit id="BcfbrBT" resname="July">
+      <trans-unit id="6c96HKS" resname="July">
         <source>July</source>
         <target>Juillet</target>
       </trans-unit>
-      <trans-unit id="wq.dOFZ" resname="August">
+      <trans-unit id="pm2JcOV" resname="August">
         <source>August</source>
         <target>Août</target>
       </trans-unit>
-      <trans-unit id="JJ0fnLh" resname="September">
+      <trans-unit id="zVWeoKv" resname="September">
         <source>September</source>
         <target>Septembre</target>
       </trans-unit>
-      <trans-unit id="eu5bXbu" resname="October">
+      <trans-unit id=".deReHt" resname="October">
         <source>October</source>
         <target>Octobre</target>
       </trans-unit>
-      <trans-unit id="togj7e0" resname="November">
+      <trans-unit id="neb_HXJ" resname="November">
         <source>November</source>
         <target>Novembre</target>
       </trans-unit>
-      <trans-unit id="h0X4ZkC" resname="December">
+      <trans-unit id="j7IEykY" resname="December">
         <source>December</source>
         <target>Décembre</target>
+      </trans-unit>
+      <trans-unit id="9Cf_F.o" resname="Modifier votre email">
+        <source>Modifier votre email</source>
+        <target>Modifier votre email</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="Dr0lo0H" resname="Ville">
+        <source>Ville</source>
+        <target>Ville</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Téléphone</target>
+      </trans-unit>
+      <trans-unit id="JdINAUi" resname="Customer request">
+        <source>Customer request</source>
+        <target>Requête client</target>
       </trans-unit>
     </body>
   </file>

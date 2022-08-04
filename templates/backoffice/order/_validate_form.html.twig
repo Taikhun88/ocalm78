@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backoffice_order_validate', {'id': order.id}) }}" onsubmit="return confirm('Etes-vous sûr(e) de vouloir valider cette commande ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ order.id) }}">
+    <button class="btn btn-success mt-1">Confirmer la commande</button>
+</form>

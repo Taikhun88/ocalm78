@@ -18,7 +18,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProfilController extends AbstractController
 {
-    // TODO créer une route /profil/id avec une card qui regroupe les infos essentielles + action dirigeant vers edit profil/id/edit
     #[Route('/profil/{id}', name: 'profil_user', methods: 'GET')]
     public function profilUser(User $user): Response
     {

@@ -58,8 +58,10 @@
 				<div class="separator-around"></div>
 			</div>
 
-			<section id="bestsellers-section">
-				{{ render_chart(chart, {'data-controller': 'mychart'}) }}
+			<section
+				id="bestsellers-section">
+				{# {{ render_chart(chart, {'data-controller': 'mychart'}) }} #}
+				{# {% include "./order/partials/_sum_up_order.html.twig" %} #}
 				{# TODO faire la section des plus vendus #}
 			</section>
 
@@ -115,7 +117,7 @@
 							</div>
 							<div>
 								{% for star in 1..5 %}
-								{% set fillingStar = feedback.rating %}
+									{% set fillingStar = feedback.rating %}
 									<i class="fas fa-star {{ fillingStar >= star ? ' text-warning' : '' }}"></i>
 								{% endfor %}
 							</div>
@@ -131,5 +133,3 @@
 		</div>
 	</main>
 {% endblock %}
-
-

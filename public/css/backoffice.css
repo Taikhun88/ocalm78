@@ -22,10 +22,20 @@
     height: calc(100vh - 90px);
 }
 
-#listLink {
+#listLink,
+#listPanier {
     background-color: rgba(188, 188, 188, 0.5);
-    overflow: hidden;
+    overflow: auto;
     height: 100%;
+}
+
+#listPanier {
+    background-color: #828689;
+}
+
+.panierActive {
+    display: flex;
+    white-space: nowrap;
 }
 
 .listLinkActive {
@@ -36,13 +46,28 @@
     white-space: nowrap;
 }
 
-.listLinkInactive {
+.listLinkInactive,
+.panierInactive {
     display: none;
 }
 
 #displayListLink {
     height: 30px;
     border-radius: 0 10px 10px 0;
+}
+
+#panierdecote {
+    /* background-color: rgba(255, 0, 0, 0.332); */
+    position: fixed;
+    top: 90px;
+    right: 0px;
+    z-index: 10;
+    height: calc(100vh - 90px);
+}
+
+#displayPanier {
+    height: 30px;
+    border-radius: 10px 0px 0px 10px;
 }
 
 ul {
@@ -70,7 +95,8 @@ ul>li>a.nav-side {
 }
 
 .select-payment-mode {
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     padding: 0.375rem 0.75rem;
     border-radius: 0.25rem;
     text-align: center;
@@ -78,10 +104,21 @@ ul>li>a.nav-side {
 
 .select-style {
     height: 100%;
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.select-style > option {
+    background-color: var(--primary);
 }
 
 .option-style {
     margin-top: 3px;
+}
+
+.option-styleadd {
+    background-color: transparent;
 }
 
 .notification-request {

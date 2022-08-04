@@ -10,20 +10,9 @@
 	<script src="{{ asset('js/backofficehome.js') }}"></script>
 {% endblock %}
 
-{% block body %}
-
-	<!-- Contenu principal -->
-	<div id="menudecote" class="d-flex flex-row">
-		<div id="listLink" class="text-light listLinkInactive">
-			{% include "backoffice/partials/links.html.twig" %}
-		</div>
-		<button id="displayListLink">
-			<i id="buttonSidebar" class="fas fa-chevron-right text-danger"></i>
-		</button>
-	</div>
+{% block body %}	
 	<div class="container">
 		{% block content %}{% endblock %}
 	</div>
-
 
 {% endblock %}

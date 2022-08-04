@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backoffice_order_delivered', {'id': order.id}) }}" onsubmit="return confirm('Etes-vous sûr(e) que la livraison est confirmée ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delivered' ~ order.id) }}">
+    <button class="btn btn-success mt-1">Confirmer la livraison</button>
+</form>

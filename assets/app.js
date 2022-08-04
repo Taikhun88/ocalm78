@@ -21,6 +21,9 @@ import './../public/css/textareaWithHTML.css';
 
 // start the Stimulus application
 import './bootstrap';
+import './js/bo_order_form';
+import './js/order_datepicker.js';
+import './js/responsive_nav.js';
     
 require('bootstrap');
 require('bootstrap/dist/js/bootstrap.bundle');

@@ -3,7 +3,7 @@
 {% block title %}
 	{{parent()}}
 	-
-				Profil
+					Profil
 {% endblock %}
 
 {% block body %}
@@ -13,46 +13,61 @@
 		<div class="d-flex flex-row usercard bg-dark rounded p-1">
 			<div class="d-flex flex-column w-25">
 				<div class="h-75 pt-3">
-					<img class="rounded-circle" width="70%" src="{{ asset('images/avatars/' ~ user.avatar.imagePath) }}" alt="">
+					{% if user.avatar %}
+						<img class="rounded-circle" width="70%" src="{{ asset('images/avatars/' ~ user.avatar.imagePath) }}" alt="">
+					{% else %}
+						<i class="fas fa-user-circle fa-7x"></i>
+					{% endif %}
 				</div>
 				<div class="h-25">
 					<p class="pseudo-responsive">{{ user.pseudo }}</p>
 				</div>
 			</div>
 
-			<div class="d-flex flex-column w-75 pt-3 bg-secondary">
+			<div class="d-flex flex-column w-75 pt-3 bg-secondary" style="text-align:start!important;">
 				<div class="d-flex flex-column text-white h-75 px-2">
 					<div class="d-flex flex-column flex-md-row">
 						<label for="phone">Téléphone :</label>
-						<p class="info-indent" name="phone"> {{ user.phone }}</p>
+						<p class="info-indent" name="phone">
+							{{ user.phone }}</p>
 					</div>
 					<div class="d-flex flex-column flex-md-row">
 						<label for="email">Email :</label>
-						<p class="info-indent" name="email"> {{ user.email }}</p>
-						<div><a class="link-changer" href="{{ path('profil_user_edit_email', {'id': user.id}) }}"> changer </a></div>
+						<p class="info-indent" name="email">
+							{{ user.email }}</p>
+						<div>
+							<a class="link-changer" href="{{ path('profil_user_edit_email', {'id': user.id}) }}">
+								changer
+							</a>
+						</div>
 					</div>
 					<div class="d-flex flex-column flex-md-row">
 						<label for="address">Adresse :</label>
-						<p class="info-indent" name="address"> {{ user.address }}</p>
+						<p class="info-indent" name="address">
+							{{ user.address }}</p>
 					</div>
 					<div class="d-flex flex-column flex-md-row">
 						<label for="city">Ville :</label>
-						<p class="info-indent" name="city"> {{ user.city }}</p>
+						<p class="info-indent" name="city">
+							{{ user.city }}</p>
 					</div>
 					<div class="d-flex flex-column flex-md-row">
 						<label for="newsletter">Abonnement à la newsletter :</label>
-						<p class="info-indent" name="newsletter">{% if user.newsletter %}
-							<img width="18px" src="{{ asset('images/chek.png') }}" alt="">
-						{% else %}
-							<img width="18px" src="{{ asset('images/false.png') }}" alt="">							
-						{% endif %}</p>
+						<p class="info-indent" name="newsletter">
+							{% if user.newsletter %}
+								<img width="18px" src="{{ asset('images/chek.png') }}" alt="">
+							{% else %}
+								<img width="18px" src="{{ asset('images/false.png') }}" alt="">
+							{% endif %}
+						</p>
 					</div>
 					<div class="d-flex flex-column flex-md-row">
-						<label for="loyalty">Points de fidélité :</label>
-						<p class="info-indent" name="loyalty"> {{ user.loyaltyPoints }}</p>
+						<label for="loyalty">Fidélité :</label>
+						<div class="info-indent pts-logo" name="loyalty">
+							{{ user.loyaltyPoints ? user.loyaltyPoints : 0 }}<i class="fas fa-award fa-lg text-warning"></i></div>
 					</div>
 					<div class="text-end">
-						<a class="btn btn-primary btn-sm " href="{{ path('profil_user_edit', {'id': user.id}) }}">
+						<a class="btn btn-primary btn-sm" href="{{ path('profil_user_edit', {'id': user.id}) }}">
 							<i class="far fa-edit"></i>
 						</a>
 					</div>

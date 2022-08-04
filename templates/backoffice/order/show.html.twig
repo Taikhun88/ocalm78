@@ -84,9 +84,23 @@
 		<i class="far fa-edit"></i>
 	</a>
 
-	{{ include('backoffice/order/_delete_form.html.twig') }}
+    {% if order.status != 4 %}
+		{{ include('backoffice/order/_cancel_form.html.twig') }}
+	{% endif %}
+	
+	{% if order.status == 0 %}
+		{{ include('backoffice/order/_validate_form.html.twig') }}
+	{% endif %}
 
-	<a class="text-light" href="{{ path('app_backoffice_order_index') }}">
+	{% if order.status == 1 %}
+		{{ include('backoffice/order/_paid_form.html.twig') }}
+	{% endif %}
+
+	{% if order.status == 2 %}
+		{{ include('backoffice/order/_delivered_form.html.twig') }}
+	{% endif %}
+
+	<a class="text-light d-block" href="{{ path('app_backoffice_order_index') }}">
 		<i class="fas fa-reply-all"></i>
 	</a>
 {% endblock %}

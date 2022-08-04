@@ -57,7 +57,7 @@ class UserProfileType extends AbstractType
                     'label' => 'Ville',
                     'attr' => 
                     [
-                        'class' => 'wpx-500 m-auto text-center'
+                        'class' => 'select-payment-mode m-auto text-center'
                     ]
                 ]
             )

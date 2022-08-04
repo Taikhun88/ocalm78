@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Form\OrderType;
+use App\Form\OrderCustomerType;
 use App\Repository\OrderRepository;
+use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
-use DateTime;
+use App\Service\OrderNumber;
+use App\Service\Panier;
 use DateTimeImmutable;
-use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrderController extends AbstractController
 {
     #[Route('/order', name: 'app_order')]
-    public function index(Request $request, ProductRepository $productRepository, OrderRepository $orderRepository): Response
+    public function index(Request $request, Panier $panier): Response
     {
-        $orderDetails = $this->showOrderDetails($request, $productRepository);
+        $orderDetails = $panier->showOrderDetails();
        // Gets the array request with all its data, counts the numbers of lines. If there is data, then there will be more lines
         if (sizeof($request->request) >= 1) {
             $dataPost = $request->request;
@@ -39,8 +40,9 @@ class OrderController extends AbstractController
                         $oldValue = $value['qty'];
                         $newValue = $value2;
                         if ($oldValue != $newValue) {
-                            $dataSession = $request->getSession();
-                            $dataSession->set($value['id'], $newValue);
+                            $dataSession = $request->getSession()->get('Panier');
+                            $dataSession[$value['id']] = $newValue;
+                            $request->getSession()->set('Panier', $dataSession);
                         }
                     }
                 }
@@ -54,50 +56,64 @@ class OrderController extends AbstractController
     }
 
     #[Route('/order/details', name: 'app_order_details')]
-    public function showDeliveryDetails(Request $request, OrderRepository $orderRepository, ProductRepository $productRepository, MailerInterface $mailer) {
+    public function showDeliveryDetails(Request $request, OrderRepository $orderRepository, ProductRepository $productRepository, ProductCategoryRepository $productCategoryRepository, MailerInterface $mailer, OrderNumber $orderNumber, Panier $panier) {
         $order = new Order();
-        $form = $this->createForm(OrderType::class, $order);
+        $form = $this->createForm(OrderCustomerType::class, $order);
         $form->handleRequest($request);
         $dateOfForm = new DateTimeImmutable();
         $timeStampForm = $dateOfForm->getTimestamp();
         $oneDay = 24 * 60 * 60;
         $timeStampFinal = $timeStampForm + $oneDay;
         $finalDate = $dateOfForm->setTimestamp($timeStampFinal);
-        // dd($timeStampForm, $timeStampFinal, $finalDate);
+        $currentDate = new DateTimeImmutable();
         
         if ($form->isSubmitted() && $form->isValid()) {
             // We want the order number to be unique for the customer so we can easily use it later on when he gives it to us
             // Careful Order Number is not Order ID
-            $orderNumber = uniqid("#");
-            $orderDetails = $this->showOrderDetails($request, $productRepository);
+
+            $orderDetails = $panier->showOrderDetails();
             // We add a few more input to the form on OrderPage 
-            $order->setOrderNumber($orderNumber);
+            $numberReturned = $orderNumber->createOrderNumber();
+            $order->setOrderNumber($numberReturned);
             $order->setCreatedAt(new DateTimeImmutable());
             $order->setStatus(0);
+
+            $totalPrice = 0;
+            $orderPoints = 0;
             foreach ($orderDetails as $key => $value) {
                 unset($value['name']);
-                unset($value['price']);
                 unset($value['image']);
                 // Update the variable with the unset 
                 $orderDetails[$key] = $value;
-                // dd($key, $value);
+                $totalPrice = $totalPrice + ($value['qty'] * $value['price']);
+                $currentProduct = $productRepository->find($value['id']);
+                $productPoints = $currentProduct->getPoints();
+                $orderPoints = $orderPoints + ($productPoints * $value['qty']);
             }
-            $order->setDetailsOrder($orderDetails);
+            $newDateString = $request->request->get('delivery_date');
+            $newDateDecode = json_decode($newDateString);
+            $newDateToReturn = new DateTimeImmutable($newDateDecode->date . ".0");
             
+            $order->setDeliveryDate($newDateToReturn);
+            $order->setDetailsOrder($orderDetails);
+            $order->setPoints($orderPoints);
+            $order->setPaymentMode($request->request->get('payment-mode'));
+            $order->setTotalPrice($totalPrice);
+
             // $order->setDeliveryDate();
-            // dd($request->request);
             $orderRepository->add($order, true);
 
             // After the order is sent. We need to reset the cart of customer
             // We use the method cleanOrderDetails
             $this->cleanOrderDetails($request);
             // We display a clear message to confirm his order has been sent on the redirected page below
-            $this->addFlash("success", 'Votre commande a bien été envoyé. Vous recevrez sous peu un email de confirmation.');
+            $this->addFlash("success", 'Votre commande a bien été enregistré. Vous recevrez sous peu un email de confirmation.');
 
             // Confirmation mail sent to user 
             $context = [
                 'text'          => "Une commande a été enregistrée. Merci de vérifier et confirmer celle-ci. CALM",
                 'emailCustomer' => $order->getEmail(),
+                // 'detailsOrder' => $order->getDetailsOrder(),
             ];
 
             $email = (new TemplatedEmail())
@@ -109,21 +125,23 @@ class OrderController extends AbstractController
 
             $mailer->send($email);
 
-            return $this->redirectToRoute('home');            
+            return $this->redirectToRoute('app_index');            
         }
         return $this->render('order/details.html.twig', [
             'orderForm' => $form->createView(),
             'finalDate' => $finalDate,
+            'currentDate' => $currentDate,
         ]);
     }
 
     #[Route('/order/delete/{id}', name: 'app_order_delete_item')]
-    public function deleteItemOrder(int $id, Product $product, Request $request, ProductRepository $productRepository): Response
+    public function deleteItemOrder(Product $product, Request $request, Panier $panier): Response
     {        
-        $sessionOrderCart = $this->showOrderDetails($request, $productRepository);
+        $sessionOrderCart = $panier->showOrderDetails();
+
         foreach ($sessionOrderCart as $key => $value) {
-            if ($id == $value['id']) {
-               $this->cleanOneItemInSession($id, $request);
+            if ($product->getId() == $value['id']) {
+               $this->cleanOneItemInSession($value['id'], $request);
                return $this->redirectToRoute('app_order');
             }
         }
@@ -134,63 +152,73 @@ class OrderController extends AbstractController
     #[Route('/order/show/', name: 'app_order_show')]
     public function showOrders(Request $request, OrderRepository $orderRepository, ProductRepository $productRepository)
     {
-        $listOfWaitingOrders = [];
-        $products = $productRepository->findAll();
+        $listOfOrders = [
+            'waiting0' => [],
+            'waiting1' => [],
+            'waiting2' => [],
+            'finalized' => [],
+            'cancelled' => [],
+        ];
 
-        if (sizeof($request->request) >= 1 && $request->request->get('email')) {
-            // $listOfWaitingOrders = $orderRepository->findAll($request->request->get('email'));
-            $listOfOrdersByEmail = $orderRepository->findByEmail($request->request->get('email'));
-            foreach ($listOfOrdersByEmail as $key => $value) {
-                if ($value->getStatus() == 0) {
-                    $listOfWaitingOrders[] = $value;
-                }
+        $listOfOrdersHeaders = [
+            'Commandes en attente de validation',
+            'Commandes en attente de paiement',
+            'Commandes en attente de livraison',
+            'Commandes finalisées',
+            'Commandes annulées',
+        ];
+
+        $products = $productRepository->findAll();
+        $userEmail = $_SESSION['_sf2_attributes']['_security.last_username'];
+
+        $listOfOrdersByEmail = $orderRepository->findByEmail($userEmail);
+        foreach ($listOfOrdersByEmail as $key => $value) {
+            if ($value->getStatus() == 0) {
+                $listOfOrders['waiting0'][] = $value;
             }
-            if ( $listOfWaitingOrders == null) {
-                $this->addFlash('danger', "Vous n'avez pas de commandes en attente de confirmation.");
+            elseif ($value->getStatus() == 1) {
+                $listOfOrders['waiting1'][] = $value;
             }
-            // dd($listOfWaitingOrders);
+            elseif ($value->getStatus() == 2) {
+                $listOfOrders['waiting2'][] = $value;
+            }
+            elseif ($value->getStatus() == 3) {
+                $listOfOrders['finalized'][] = $value;
+            } 
+            else {
+                $listOfOrders['cancelled'][] = $value;
+            }
         }
+        // dd($listOfOrders);
+
         return $this->render('order/show.html.twig', [
-            'listOfWaitingOrders' => $listOfWaitingOrders,
+            'listOfOrders' => $listOfOrders,
+            'listOfOrdersHeaders' => $listOfOrdersHeaders,
             'products'            => $products,
         ]);
     }
 
-    public function showOrderDetails($request, $productRepository)
+    #[Route('/{id}/cancel', name: 'app_order_cancel', methods: ['POST'])]
+    public function cancel(Request $request, Order $order, OrderRepository $orderRepository): Response
     {
-        $listOrderProduct = [];
-        foreach ($request->getSession() as $key => $value) {
-            // Checks that we call the right index in the array of the session
-            // The session retrieves many data but the ones we need has index typed as integer
-            if (is_int($key) == true) {
-                // we check that user id stored in the session is the same as the one in the database
-                // We call the id of vatiable key to gets data and compare both data
-                $productDetails = $productRepository->find($key);
-                //We create an array inside the array list
-                $listOrderProduct[] =  [
-                    'id' => $key,
-                    'qty' => $value,
-                    'name' => $productDetails->getName(),
-                    'image' => $productDetails->getImage(),
-                    'price' => $productDetails->getPrice()
-                ];
-            }
+        if ($this->isCsrfTokenValid('cancel' . $order->getId(), $request->request->get('_token'))) {
+            $order->setStatus(4);
+            $orderRepository->add($order, true);
         }
-        return $listOrderProduct;
+
+        return $this->redirectToRoute('app_order_show', [], Response::HTTP_SEE_OTHER);
     }
 
     public function cleanOrderDetails($request)
     {
-        foreach ($request->getSession() as $key => $value) {
-            if (is_int($key) == true) {
-                $request->getSession()->remove($key);
-            }
-        }
-        return;
+        $request->getSession()->set('Panier', []);
     }
 
     public function cleanOneItemInSession(int $id, $request) 
     {
-        $request->getSession()->remove($id);
+        $panier = $request->getSession()->get('Panier');
+
+        unset($panier[$id]);
+        $request->getSession()->set('Panier', $panier);
     }
 }

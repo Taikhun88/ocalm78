@@ -25,6 +25,8 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_index', methods: ['GET'])]
     public function index(Request $request, ProductRepository $productRepository, ChartBuilderInterface $chartBuilder): Response
     {
+        $request->getSession()->set('Panier', []);
+        
         if ($request->getSession()->get('_locale') == null) {
 
             return $this->redirectToRoute('change_lang', ['lang' => 'fr']);
@@ -60,7 +62,7 @@ class MainController extends AbstractController
             ],
         ]);
 
-        // dd($chart->getOptions());
+        // dd($request->getSession());
 
         return $this->render('main/index.html.twig', [
             'recentProducts' => $recentProducts,

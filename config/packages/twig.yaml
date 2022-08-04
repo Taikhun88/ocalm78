@@ -4,6 +4,12 @@ twig:
     globals:
         locales: '%app.locales%'
         CallAvatars: '@App\Service\CallAvatars'
+        Panier: '@App\Service\Panier'
+        DOMAIN_NAME: '%env(DOMAIN_NAME)%'
+
+    paths:
+        # point this wherever your css files live
+        '%kernel.project_dir%/public/css/': styles
 
 when@test:
     twig:

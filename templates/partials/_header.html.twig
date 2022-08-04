@@ -5,7 +5,6 @@
 			<p class="bandeau-info mb-0 text-white">
 				<span class="bandeau-span">Nos jours ouvrés : Sam. Dim. et Lun. Livraison de 18h à 22h | Trappes, La Verrière, Montigny-Le-Br., Maurepas, Elancourt</span>
 			</p>
-			{# TODO ajouter breakpoint bandeau adapter vitesse ave padding right #}
 			<div class="container-fluid">
 				<a class="navbar-brand" href="{{path('app_index')}}">
 					<img class="logo" src="{{ asset('images/logo.png') }}" alt="">
@@ -19,17 +18,19 @@
 					<ul class="navbar-nav me-auto mb-2 mb-md-0 flex-row flex-wrap"></ul>
 					<ul class="navbar-nav me-4 mb-md-0 flex-row flex-wrap justify-content-start justify-content-md-end">
 						<li class="nav-item">
-							<a class="mx-1 nav-link {{ currentRoute == 'app_order' ? ' active' : '' }}" aria-current="page" href="{{ path('app_index') }}">
+							<a class="mx-1 nav-link {{ currentRoute == 'app_order' ? ' active' : '' }}" aria-current="page" href="{{ path('app_order') }}">
 								<i class="fas fa-shopping-cart light opacity-75"></i>
-								Mon panier
+								Mon panier {% if Panier.countProducts > 0 %}({{ Panier.countProducts }}){% endif %}
 							</a>
 						</li>
+						{% if app.user %}
 						<li class="nav-item">
-							<a class="mx-1 nav-link {{ currentRoute == 'app_order_show' ? ' active' : '' }}" aria-current="page" href="{{ path('app_index') }}">
+							<a class="mx-1 nav-link {{ currentRoute == 'app_order_show' ? ' active' : '' }}" aria-current="page" href="{{ path('app_order_show') }}">
 								<i class="fas fa-history light opacity-75"></i>
 								Mes commandes
 							</a>
 						</li>
+						{% endif %}
 						<li class="nav-item">
 							<a class="mx-1 nav-link {{ currentRoute == 'product_list' ? ' active' : '' }}" aria-current="page" href="{{ path('product_list') }}">
 								<i class="fas fa-hamburger light opacity-75"></i>

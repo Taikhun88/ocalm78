@@ -20,36 +20,50 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product', name: 'product_list')]
-    public function productsList (ProductRepository $productRepository, Request $request): Response
+    public function productsList(ProductRepository $productRepository, Request $request): Response
     {
         $products = [];
         $products['Box'] = $productRepository->findByCategory(3);
         $products['Plats'] = $productRepository->findByCategory(2);
         $products['Desserts'] = $productRepository->findByCategory(4);
 
-        if (sizeof($request->request) >= 1) {
-            $request->getSession()->set(strval($request->request->get('id')), intval($request->request->get('qty')));
+        if ($request->getSession()->get('Panier') === null) {
+            $request->getSession()->set('Panier', []);
         }
-        
+
+        if (sizeof($request->request) >= 1) {
+            $panier = $request->getSession()->get('Panier');
+            if (isset($panier[$request->request->get('id')])) {
+                $panier[strval($request->request->get('id'))] = $panier[$request->request->get('id')] +  intval($request->request->get('qty'));
+            }
+            else
+            {
+                $panier[strval($request->request->get('id'))] = intval($request->request->get('qty'));
+            }
+            $request->getSession()->set('Panier', $panier);
+
+            // dd($request->getSession()->get('Panier'));
+            // $request->getSession()->get('Panier')->set(strval($request->request->get('id')), intval($request->request->get('qty')));
+        }
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
     }
 
     #[Route('/product/{id}', name: 'product_details')]
-    public function productShow (Product $product): Response
+    public function productShow(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
             'product' => $product
         ]);
     }
 
-    public function bestSellers ()
+    public function bestSellers()
     {
         $orderRepository = $this->orderRepository;
-        
+
         // dd('TEST PLUS VENDUS');
 
-    } 
-
+    }
 }

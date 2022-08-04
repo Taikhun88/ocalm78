@@ -1,0 +1,26 @@
+{% set currentRoute = app.request.get('_route') %}
+{% if route[1] != 'install' %}
+	<header>
+		<div id="isLoggedIn" type="hidden" data-data="{{ app.user|json_encode }}" data-roles="{{ app.user ? app.user.roles|json_encode : []|json_encode }}" data-avatar="{{ app.user and app.user.avatar ? app.user.avatar : 'fas fa-user-circle fa-lg' }}" data-pseudo="{{ app.user ? app.user.pseudo : null }}" data-id="{{ app.user ? app.user.id : null }}" data-countpanier="{{ Panier.countProducts }}"></div>
+		<nav id="navbarSite">
+			<div class="w-100">
+				<p class="bandeau-info mb-0 text-white">
+					<span class="bandeau-span">Nos jours ouvrés : Sam. Dim. et Lun. Livraison de 18h à 22h | Trappes, La Verrière, Montigny-Le-Br., Maurepas, Elancourt</span>
+				</p>
+			</div>
+			<div class="d-flex justify-content-between align-items-center">
+				<div>
+					<a class="" href="{{path('app_index')}}">
+						<img class="logo" src="{{ asset('images/logo.png') }}" alt="">
+					</a>
+				</div>
+				<div id="divRightSideNav">
+                    <button id="btn-menu">
+                    <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+			</div>
+		</nav>
+		<div id="menuPortrait"></div>
+	</header>
+{% endif %}

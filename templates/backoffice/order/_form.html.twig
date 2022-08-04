@@ -1,36 +1,66 @@
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}
-) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-{# TODO refaire le details order #}
-{% if listOfProductsInOrder is defined %}
-	<div class="wpx-500 m-auto">
-		<div class="d-flex flex-row text-light justify-content-between">
-			<div class="w-25 text-start">Produits</div>
-			<div class="w-25 text-end">Quantité</div>
+{% if listProductsNotInOrder is defined %}
+	<div class="btn-group dropdown dropdown-center" style="margin-bottom:50px;">
+		<button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:transparent;padding:12px;color:#198754;">
+			<i class="fas fa-hamburger light opacity-75 fa-lg"></i>
+			<i class="fas fa-plus light opacity-75 fa-xs"></i>
+		</button>
+		<div class="dropdown-menu menuDropright">
+			<div class="d-flex flex-row align-items-center">
+				<select class="select-style bg-outline-success" name="product_add">
+					<option class="option-styleadd" value="0">Sélectionnez une option</option>
+					{% for product in listProductsNotInOrder %}
+						<option class="option-styleadd" data-productname="{{ product.name }}" value="{{ product.id }}">{{ product.name }}</option>
+					{% endfor %}
+				</select>
+				<input class="input-add" type="number" min="0" max="10">
+				<button class="btn text-success" id="add-product">
+					<i class="fas fa-cart-plus fa-lg"></i>
+				</button>
+			</div>
 		</div>
+	</div>
+{% endif %}
+
+<div class="card-details-form">
+	<div class="d-flex flex-row text-light justify-content-between">
+		<div class="w-25 text-start">Produits</div>
+		<div class="w-25 text-end">Quantité</div>
+	</div>
+	{% if listOfProductsInOrder is defined %}
 		{% for productsInOrder in listOfProductsInOrder %}
 			<div class="d-flex flex-row text-light justify-content-between option-style">
 				<div class="w-25 text-start">
 					<select class="select-style" name="product_{{ productsInOrder.id }}" id="">
 						{% for product in listOfProducts %}
-							<option class="text-start" value="{{ product.id }}" {% if productsInOrder.id == product.id %} selected {% endif %}>{{ product.name }}
-							</option>
+							{% if product.id == productsInOrder.id %}
+								<option class="text-start" value="{{ product.id }}" {% if productsInOrder.id == product.id %} selected {% endif %}>
+									{{ product.name }}
+								</option>
+							{% endif %}
 
+							{% if product.id not in listOfProductsId %}
+								<option class="text-start" value="{{ product.id }}" {% if productsInOrder.id == product.id %} selected {% endif %}>
+									{{ product.name }}
+								</option>
+							{% endif %}
 						{% endfor %}
 					</select>
 				</div>
 				<div class="w-25 text-end">
-					<input min='1' max='10' class="text-center" type="number" name="qty_{{ productsInOrder.id }}" value="{{ productsInOrder.qty }}">
+					<input min='0' max='10' class="text-center" type="number" name="qty_{{ productsInOrder.id }}" value="{{ productsInOrder.qty }}">
 				</div>
 			</div>
 		{% endfor %}
-	</div>
-{% else %}
-	<div class="d-flex flex-column">
-		<label class="mb-2" for="new_details_order">Détails de la commande</label>
-		<input class="form-control mb-3" type="text" name="new_details_order" value="">
-	</div>
-{% endif %}
+	{% endif %}
+</div>
+
+<div class="d-flex flex-column mb-3">
+	<label class="label-payment-mode" for="delivery_date">Date de livraison</label>
+	<input class="select-payment-mode m-auto" type="text" name="delivery_date" value="{{ currentDate|json_encode }}">
+</div>
+
 <div class="d-flex flex-column mb-3">
 	<label class="label-payment-mode" for="payment-mode">Mode de paiement</label>
 	<select class="select-payment-mode m-auto" name="payment-mode" id="payment-mode">
@@ -38,15 +68,20 @@
 		<option value="1" {{ order.paymentMode == 1 ? 'selected' : "" }}>Espèces</option>
 	</select>
 </div>
+
 <div class="d-flex flex-column mb-3">
 	<label class="label-payment-mode" for="city">Lieu de livraison</label>
 	<select class="select-payment-mode m-auto" name="city" id="city">
 		{% for city in listOfCities %}
 			{% if order.city.id is defined %}
-				<option value="{{ city.id }}" {{ order.city.id == city.id ? 'selected' : "" }}>{{ city.cityName }} - {{ city.zipCode }}
+				<option value="{{ city.id }}" {{ order.city.id == city.id ? 'selected' : "" }}>{{ city.cityName }}
+					-
+					{{ city.zipCode }}
 				</option>
 			{% else %}
-				<option value="{{ city.id }}">{{ city.cityName }} - {{ city.zipCode }}
+				<option value="{{ city.id }}">{{ city.cityName }}
+					-
+					{{ city.zipCode }}
 				</option>
 			{% endif %}
 		{% endfor %}
@@ -54,5 +89,5 @@
 </div>
 
 {{ form_widget(form) }}
-<button class="btn btn-primary mb-2">{{ button_label|default('Enregistrer') }}</button>
+<button class="btn btn-primary mb-2" type="submit">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

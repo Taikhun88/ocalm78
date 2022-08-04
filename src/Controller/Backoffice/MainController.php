@@ -54,6 +54,7 @@ class MainController extends AbstractController
         return $this->render('backoffice/main/index.html.twig', 
         [
             'datas' => $datas,
+            'products' => $productRepository->findAll(),
         ]);
     }
 }

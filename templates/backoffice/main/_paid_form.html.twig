@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backoffice_order_pay', {'id': commande.id}) }}" onsubmit="return confirm('Etes-vous sûr(e) que le paiement est confirmé ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('pay' ~ commande.id) }}">
+    <button class="btn btn-primary mt-1">Confirmer le paiement paypal</button>
+</form>

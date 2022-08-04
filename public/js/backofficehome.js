@@ -1,4 +1,4 @@
-const backofficehome = {
+var backofficehome = {
     handleClick:function (event) { 
         const divLink = document.querySelector('#listLink');
         const buttonSidebar = document.querySelector('#buttonSidebar');
@@ -7,6 +7,16 @@ const backofficehome = {
         
         divLink.classList.toggle('listLinkInactive');
         divLink.classList.toggle('listLinkActive');
+    },
+    
+    handleClickPanier:function (event) { 
+        const divPanier = document.querySelector('#listPanier');
+        const buttonPanier = document.querySelector('#buttonPanier');
+        buttonPanier.classList.toggle('fa-flip-horizontal');
+        app.handleSwitchDropdownToPanier(divPanier);
+      
+        divPanier.classList.toggle('panierActive');
+        divPanier.classList.toggle('panierInactive');
     },
 
     handleClickDisplayRequest:function (event) { 

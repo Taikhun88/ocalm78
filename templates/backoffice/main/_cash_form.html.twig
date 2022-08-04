@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backoffice_order_cash', {'id': commande.id}) }}" onsubmit="return confirm('Etes-vous sûr(e) que la livraison et le paiement espèces sont confirmés ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('cash' ~ commande.id) }}">
+    <button class="btn btn-primary mt-1">Confirmer le paiment espèces</button>
+</form>

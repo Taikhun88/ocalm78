@@ -44,15 +44,77 @@ class AppFixtures extends Fixture
         $this->cityRepository = $cityRepository;
         $this->avatarRepository = $avatarRepository;
     }
-
+    
     public function load(ObjectManager $manager): void
     {
         $categoriesName = ['Anime', 'Gravatar'];
-
+        
         for ($i = 0; $i <= 1; $i++) {
             $avatarCategory = new AvatarCategory();
             $avatarCategory->setName($categoriesName[$i]);
             $this->avatarCategoryRepository->add($avatarCategory, true);
+        }
+
+        $avatarFixtures = [
+            [
+                'name' => "Marine",
+                'image_path' => "marine-62d9d5bce534e.jpg",
+            ],
+            [
+                'name' => "Violette",
+                'image_path' => "violette-62d9d5836deff.jpg",
+            ],
+            [
+                'name' => "Blond",
+                'image_path' => "blond-62d9d5a9a2f2b.jpg",
+            ],
+            [
+                'name' => "Brun",
+                'image_path' => "brun-62d9d5987c073.jpg",
+            ],
+        ];
+    
+        for ($iAvatars = 0; $iAvatars <= 3; $iAvatars++) {
+            $currentAvatar = new Avatar();
+            $categoryAnime = $this->avatarCategoryRepository->find(1);
+            
+            $currentAvatar->setName($avatarFixtures[$iAvatars]['name']);
+            $currentAvatar->setImagePath($avatarFixtures[$iAvatars]['image_path']);
+            $currentAvatar->setCategory($categoryAnime);
+    
+            $this->avatarRepository->add($currentAvatar, true);
+        }
+        
+        $cityFixtures = [
+            [
+                'zip_code' => '78190',
+                'city_name' => 'TRAPPES',
+            ],
+            [
+                'zip_code' => '78320',
+                'city_name' => 'LA VERRIERE',
+            ],
+            [
+                'zip_code' => '78990',
+                'city_name' => 'ELANCOURT',
+            ],
+            [
+                'zip_code' => '78310',
+                'city_name' => 'MAUREPAS',
+            ],
+            [
+                'zip_code' => '78180',
+                'city_name' => 'MONTIGNY-LE-BRETONNEUX',
+            ],
+        ];
+    
+        for ($iCities = 0; $iCities <= 3; $iCities++) {
+            $currentCity = new City();
+    
+            $currentCity->setZipCode($cityFixtures[$iCities]['zip_code']);
+            $currentCity->setCityName($cityFixtures[$iCities]['city_name']);
+    
+            $this->cityRepository->add($currentCity, true);
         }
 
         $newsletterFixtures = [
@@ -89,12 +151,13 @@ class AppFixtures extends Fixture
             $this->newsletterRepository->add($currentNewsletter, true);
         }
 
-
         for ($iUser = 0; $iUser <= 3; $iUser++) {
             $currentUser = new User();
             $currentUser->setEmail('user' . $iUser . '@gmail.com');
             $currentUser->setPseudo('user' . $iUser);
-            $currentUser->setPassword('$13$YxYBpbq6ta3PGBE58gVb4u9m95hEdf6ZC6cLaTb7lTMRfO3UjcDsi');
+            $currentUser->setCity($this->cityRepository->find($iUser + 1));
+            $currentUser->setAvatar($this->avatarRepository->find($iUser + 1));
+            $currentUser->setPassword('$2y$13$w8OwQtgk2cPmrC5pKeHmgu5zVzVXerEeXokicuKipb4gmJGlS4e1W');
             $currentUser->setCreatedAt(new DateTimeImmutable());
             $currentUser->setIsVerified(1);
 
@@ -229,75 +292,15 @@ class AppFixtures extends Fixture
             $currentProduct->setImageCloseup($productFixtures[$iProducts]['image_closeup']);
             $currentProduct->setImageCarousel($productFixtures[$iProducts]['image_carousel']);
             $currentProduct->setPromo(0);
-
-            $productCategoryRepository = $this->productCategoryRepository;
-            $category = $productCategoryRepository->find($iProducts + 1);
-            $currentProduct->setCategory($category);
+            $currentProduct->setCategory($this->productCategoryRepository->find($productFixtures[$iProducts]['category']));
+            // $productCategoryRepository = $this->productCategoryRepository;
+            // $category = $productCategoryRepository->find($iProducts + 2);
+            // $currentProduct->setCategory($category);
             $currentProduct->setCreatedAt(new DateTimeImmutable());
 
             $this->productRepository->add($currentProduct, true);
         }
 
-        $cityFixtures = [
-            [
-                'zip_code' => '78190',
-                'city_name' => 'TRAPPES',
-            ],
-            [
-                'zip_code' => '78320',
-                'city_name' => 'LA VERRIERE',
-            ],
-            [
-                'zip_code' => '78990',
-                'city_name' => 'ELANCOURT',
-            ],
-            [
-                'zip_code' => '78310',
-                'city_name' => 'MAUREPAS',
-            ],
-            [
-                'zip_code' => '78180',
-                'city_name' => 'MONTIGNY-LE-BRETONNEUX',
-            ],
-        ];
 
-        for ($iCities = 0; $iCities <= 3; $iCities++) {
-            $currentCity = new City();
-
-            $currentCity->setZipCode($cityFixtures[$iCities]['zip_code']);
-            $currentCity->setCityName($cityFixtures[$iCities]['city_name']);
-
-            $this->cityRepository->add($currentCity, true);
-        }
-
-        $avatarFixtures = [
-            [
-                'name' => "Marine",
-                'image_path' => "marine-62d9d5bce534e.jpg",
-            ],
-            [
-                'name' => "Violette",
-                'image_path' => "violette-62d9d5836deff.jpg",
-            ],
-            [
-                'name' => "Blond",
-                'image_path' => "blond-62d9d5a9a2f2b.jpg",
-            ],
-            [
-                'name' => "Brun",
-                'image_path' => "brun-62d9d5987c073.jpg",
-            ],
-        ];
-
-        for ($iAvatars = 0; $iAvatars <= 3; $iAvatars++) {
-            $currentAvatar = new Avatar();
-            $categoryAnime = $this->avatarCategoryRepository->find(1);
-
-            $currentAvatar->setName($avatarFixtures[$iAvatars]['name']);
-            $currentAvatar->setImagePath($avatarFixtures[$iAvatars]['image_path']);
-            $currentAvatar->setCategory($categoryAnime);
-
-            $this->avatarRepository->add($currentAvatar, true);
-        }
     }
 }

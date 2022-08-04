@@ -53,9 +53,12 @@
 						<a class="btn btn-warning btn-sm inline-block" href="{{ path('app_backoffice_order_show', {'id': order.id}) }}">
 							<i class="far fa-eye"></i>
 						</a>
+					{% if order.status != 4 %}
 						<a class="btn btn-primary btn-sm inline-block" href="{{ path('app_backoffice_order_edit', {'id': order.id}) }}">
 							<i class="far fa-edit"></i>
 						</a>
+					{% endif %}
+					
 					</td>
 				</tr>
 			{% else %}

@@ -38,7 +38,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // On effectue l'upload du fichier grâce au service ImageUploader
+            // On effectue l'upload du fichier grâce au service 
             if ($form->has('plainPassword')) {
                 $user->setPassword(
                     $passwordHasher->hashPassword(

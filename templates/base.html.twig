@@ -37,6 +37,8 @@
 	<div id="currentRoute" type="hidden" data-data="{{ currentRoute }}">	</div>
 		{% include "partials/_header_attempt.html.twig" %}
 
+		{# Fait appel à la variable gloabale app.flashes intégrée à twig 
+		https://symfony.com/doc/current/templates.html#the-app-global-variable #}
 		{% include "partials/_flash.html.twig" %}
 
 		<div class="d-flex flex-row">

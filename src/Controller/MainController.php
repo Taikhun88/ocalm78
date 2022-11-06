@@ -27,11 +27,6 @@ class MainController extends AbstractController
     {
         $request->getSession()->set('Panier', []);
         
-        if ($request->getSession()->get('_locale') == null) {
-
-            return $this->redirectToRoute('change_lang', ['lang' => 'fr']);
-        }
-
         $recentProducts = $productRepository->findBy([], ["id" => "DESC"],  3);
         
         $randomFeedbacks = $this->getRandomFeedbacks();

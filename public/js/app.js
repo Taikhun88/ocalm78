@@ -96,9 +96,11 @@ var app = {
         const divPanier = document.querySelector('#listPanier');
 
         if (clickedTag == ulDropdown) {
-            if (divPanier.classList.contains('panierActive')) {
-                divPanier.classList.toggle('panierActive');
-                divPanier.classList.toggle('panierInactive');                
+            if (divPanier) {
+                if (divPanier.classList.contains('panierActive')) {
+                    divPanier.classList.toggle('panierActive');
+                    divPanier.classList.toggle('panierInactive');                
+                }
             }
         }
 

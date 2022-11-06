@@ -27,8 +27,8 @@ class LocaleSubscriber implements EventSubscriberInterface
         }
 
         // On vérifie si la langue est passée en paramètre de l'URL
-        if ($locale = $request->query->get('_locale')) {
-            $request->setLocale($locale);
+        if ($this->defaultLocale = $request->query->get('_locale')) {
+            $request->setLocale($this->defaultLocale);
         } else {
             // Sinon on utilise celle de la session
             $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));

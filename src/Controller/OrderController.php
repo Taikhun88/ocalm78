@@ -138,20 +138,21 @@ class OrderController extends AbstractController
     public function deleteItemOrder(Product $product, Request $request, Panier $panier): Response
     {        
         $sessionOrderCart = $panier->showOrderDetails();
-
+        
         foreach ($sessionOrderCart as $key => $value) {
             if ($product->getId() == $value['id']) {
                $this->cleanOneItemInSession($value['id'], $request);
                return $this->redirectToRoute('app_order');
             }
         }
-
+        
         return $this->render('order/delete_item.html.twig');
     }
-
+    
     #[Route('/order/show/', name: 'app_order_show')]
     public function showOrders(Request $request, OrderRepository $orderRepository, ProductRepository $productRepository)
     {
+        $_SESSION['_sf2_attributes']['_security.last_username'] = [];
         $listOfOrders = [
             'waiting0' => [],
             'waiting1' => [],
@@ -222,3 +223,5 @@ class OrderController extends AbstractController
         $request->getSession()->set('Panier', $panier);
     }
 }
+
+$commandeBurger = new OrderController();
